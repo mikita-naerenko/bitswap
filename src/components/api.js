@@ -6,8 +6,12 @@ export const api = createApi({
   tagTypes: ['Get'],
   endpoints: (builder) => ({
     getCryptoList: builder.query({
-      query: (offset) => 
-      `/assets?offset=${offset}&limit=${10}`,
+      query: (params) => { 
+        const { offset,limit } = params;
+        const defaultLimit = 10;
+        const requestLimit = limit || defaultLimit;
+        return `/assets?offset=${offset}&limit=${requestLimit}`;
+    }
     }),
     getCryptoDetails: builder.query({
       query: (id) => `/assets/${id}`,
@@ -17,11 +21,14 @@ export const api = createApi({
         const { id, interval } = params;
         return `/assets/${id}/history?interval=${interval}`;
       },
-    })
+    }),
+    searchCoins: builder.query({
+      query: (searchTerm) => `assets?search=${searchTerm}`,
+    }),
   }),
 });
 
-export const { useGetCryptoListQuery, useGetCryptoDetailsQuery, useGetCryptoHistoryQuery } = api;
+export const { useGetCryptoListQuery, useGetCryptoDetailsQuery, useGetCryptoHistoryQuery, useSearchCoinsQuery } = api;
 
 
 
