@@ -5,6 +5,7 @@ const filtersAdapter = createEntityAdapter();
 const initialState = filtersAdapter.getInitialState({
     currentPage: 'Main crypto-list',
     searchResults: null,
+    countForPagination: 0,
 });
 
 
@@ -14,7 +15,8 @@ const appBarSlice = createSlice({
     initialState,
     reducers: {
         setCurrentPage: (state, action) => {state.currentPage = action.payload},
-        setSearchResults: (state,action) => {state.searchResults = action.payload}
+        setSearchResults: (state,action) => {state.searchResults = action.payload},
+        setCountForPagination: (state, action) => {state.countForPagination = action.payload},
     },
 }); 
 
@@ -26,5 +28,6 @@ export const {selectAll} = filtersAdapter.getSelectors(state => state.appBar);
 
 export const {
     setCurrentPage,
-    setSearchResults
+    setSearchResults,
+    setCountForPagination
 } = actions;

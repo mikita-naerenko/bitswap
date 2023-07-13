@@ -6,14 +6,15 @@ import { setOffset } from '../redux/MainCryptoListSlice';
 
 
 export default function BasicPagination() {
-     const { searchResults } = useSelector(state => state.appBar)
+     const { countForPagination } = useSelector(state => state.appBar)
     const dispatch = useDispatch();
     const handlePageChange = (event, page) => {
+      // Offset's update which dependes on position of button in pagination
         dispatch(setOffset((Number(page) - 1) * 10));
       };
   return (
     <Stack spacing={2}>
-        <Pagination count={searchResults ? Math.ceil(searchResults.data.length / 10)  : 100} onChange={handlePageChange} color="primary" />
+        <Pagination count={countForPagination ?  Math.ceil(countForPagination / 10) : 100} onChange={handlePageChange} color="primary" />
     </Stack>
   );
 }
