@@ -5,8 +5,9 @@ const filtersAdapter = createEntityAdapter();
 
 const initialState = filtersAdapter.getInitialState({
     offset: 0,
-    favoritesCoin: [],
+    favoriteCoinsForRequest: [],
     cryptoDetails: {} ,
+    favoriteCoinsList: []
 })
 
 
@@ -16,16 +17,30 @@ const mainCryptoListSlice = createSlice({
     reducers: {
         setOffset: (state, action) => {state.offset = action.payload},
         
-        addFavoritesCoin: (state, action) => {
+        addFavoriteCoinsForRequest: (state, action) => {
             const newFavorite = action.payload;
-            state.favoritesCoin.push(newFavorite);
+            state.favoriteCoinsForRequest.push(newFavorite);
           },
-        removeFavoritesCoin: (state, action) => {
+        removeFavoriteCoinsForRequest: (state, action) => {
             const coinToRemove = action.payload;
-            state.favoritesCoin = state.favoritesCoin.filter(
+            state.favoriteCoinsForRequest = state.favoriteCoinsForRequest.filter(
               (coin) => coin !== coinToRemove
             );
           },
+        setFavoriteCoinsList: (state,action) => { state.favoriteCoinsList = action.payload},
+        updateFavoriteCoinsList: (state,action) => {
+          const newData = action.payload;
+          state.favoriteCoinsList.forEach((coin, index) => {
+            if (newData[coin.id]) {
+              if (coin.priceUsd !== newData[coin.id]) {
+                state.favoriteCoinsList[index] = {
+                  ...coin,
+                  priceUsd: newData[coin.id],
+                };
+              }
+            }
+          })
+        }
     },
     extraReducers: (builder) => {
   },
@@ -38,6 +53,8 @@ export const {selectAll} = filtersAdapter.getSelectors(state => state.mainCrypto
 
 export const {
     setOffset,
-    addFavoritesCoin,
-    removeFavoritesCoin,
+    addFavoriteCoinsForRequest,
+    removeFavoriteCoinsForRequest,
+    setFavoriteCoinsList,
+    updateFavoriteCoinsList
 } = actions;

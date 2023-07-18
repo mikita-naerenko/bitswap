@@ -8,20 +8,20 @@ import Paper from '@mui/material/Paper';
 import ButtonAddToFavorites from './ButtonAddToFavorites';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavoritesCoin, removeFavoritesCoin } from '../redux/MainCryptoListSlice';
+import { addFavoriteCoinsForRequest, removeFavoriteCoinsForRequest } from '../redux/MainCryptoListSlice';
 
 import Link from 'next/link';
 
   export default function BasicTable(props) {
     const dispatch = useDispatch();
-    const { favoritesCoin } = useSelector(state => state.mainCryptoList);
+    const { favoriteCoinsForRequest } = useSelector(state => state.mainCryptoList);
     const ref = useRef();
     const handleClick = (id) => {
       // Add or remove from favoritesCoin state 
-      if (!favoritesCoin.includes(id)) {
-        dispatch(addFavoritesCoin(id));
+      if (!favoriteCoinsForRequest.includes(id)) {
+        dispatch(addFavoriteCoinsForRequest(id));
       } else {
-        dispatch(removeFavoritesCoin(id));
+        dispatch(removeFavoriteCoinsForRequest(id));
       }
     };
     return (

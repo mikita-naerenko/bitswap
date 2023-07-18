@@ -14,23 +14,34 @@ const bull = (
   </Box>
 );
 
-export default function SingleCoinCard() {
+export default function SingleCoinCard({data}) {
+  const {data: selectedCoin} = data;
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Word of the Day
+          Selected coin
         </Typography>
         <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
+          {selectedCoin.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
+          Price USD: {Number(selectedCoin.priceUsd).toFixed(5)}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Market cap: {Number(selectedCoin.marketCapUsd).toFixed(5)}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Volume (24h): {Number(selectedCoin.volumeUsd24Hr).toFixed(5)}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Supply: {Number(selectedCoin.supply).toFixed(5)}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Max. supply: {Number(selectedCoin.maxSupply).toFixed(5)}
         </Typography>
         <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+          
         </Typography>
       </CardContent>
       <CardActions>

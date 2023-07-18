@@ -6,22 +6,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetFavoriteCoinsQuery } from '../components/api';
 import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
+import { setOffset, setFavoriteCoinsList, updateFavoriteCoinsList } from '../redux/MainCryptoListSlice';
+import {useWebSocketListeners} from '../components/WebSocket';
 
 
 
 const Favorites = () => {
     const dispatch = useDispatch();
-    const { favoritesCoin, offset } = useSelector(state => state.mainCryptoList);
-    const {data: favoriteCoinsList, isLoading, isError} = useGetFavoriteCoinsQuery(favoritesCoin);
+    const { favoriteCoinsForRequest, offset, favoriteCoinsList } = useSelector(state => state.mainCryptoList);
+    const {data: favoriteCoinsListResponse, isLoading, isError} = useGetFavoriteCoinsQuery(favoriteCoinsForRequest);
     // Create a list to be rendered by using the offset value from Redux, which depends on the active button in the pagination
-    const favoriteConsListToRender = favoriteCoinsList ? favoriteCoinsList.map(item => item.data).slice(offset, offset + 10): null;
+    const favoriteConsListToRender = favoriteCoinsList ? favoriteCoinsList.map(item => item).slice(offset, offset + 10): null;
+    const favoriteCoinsListTest = favoriteCoinsListResponse && favoriteCoinsListResponse.map(item => item.data);
     useEffect(() => {
-        if (favoriteCoinsList) {
+        if (favoriteCoinsListResponse) {
             // Update state of button's quantity for pagination in redux by lendth of favorite coins list
-            dispatch(setCountForPagination(favoriteCoinsList.length));
+            dispatch(setCountForPagination(favoriteCoinsListResponse.length));
+            dispatch(setFavoriteCoinsList(favoriteCoinsListTest));
+            dispatch(setOffset(0));
         }
-    })
-
+    },[favoriteCoinsListResponse])
+    
+    useWebSocketListeners(favoriteCoinsForRequest);
     
     return (
         <>

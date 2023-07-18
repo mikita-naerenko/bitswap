@@ -15,7 +15,7 @@ const Index = () => {
     const { searchResults } = useSelector(state => state.appBar);
     // Create a list to be render by using state value from Redux which depends of the active button in the pagination
     const searchResultsForRender = searchResults ? searchResults.data.slice(offset, offset + 10) : null;
-    const { data, isLoading, isError } = useGetCryptoListQuery({offset});
+    const { data, isLoading, isError } = useGetCryptoListQuery({offset},{pollingInterval: 10000,});
     useEffect(() => {
         dispatch(setCountForPagination(0));
     },[])
