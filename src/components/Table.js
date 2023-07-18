@@ -22,7 +22,7 @@ import Link from 'next/link';
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.row.data.map((row) => (
+            {props.row.map((row) => (
               
             
               <TableRow

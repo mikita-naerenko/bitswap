@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchInput from './SearchInput';
 
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,6 +37,12 @@ export default function ButtonAppBar() {
           {currentPage}
           </Typography>
           <Box display={'flex'} flexGrow={1} justifyContent={'space-around'}> 
+              {
+                currentPage === 'Main crypto-list' ? 
+                <SearchInput/> :
+                null
+              }
+              
               {
                 currentPage !== 'Main crypto-list' ? 
                   <Typography variant="h6" component="div" >
