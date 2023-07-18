@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSearchCoinsQuery, useGetCryptoListQuery } from './api';
 import { useState, useEffect } from 'react';
-import { setSearchResults } from '../redux/AppBarSlice';
+import { setSearchResults, setCountForPagination } from '../redux/AppBarSlice';
 import { useDispatch } from 'react-redux';
 
 export default function SearchInput() {
@@ -19,7 +19,7 @@ export default function SearchInput() {
         setUserInteracted(true);
         setSearchQuery(searchQuery);
       };
-      const handleInputChange = (value) => {
+      const handleInputChange = (event, value) => {
         if (!value) {
           setUserInteracted(true);
           setSearchQuery('');
@@ -29,6 +29,10 @@ export default function SearchInput() {
         if (userInteracted) {
           // Update the state with search results only when the user has interacted with the input
           dispatch(setSearchResults(searchResults));
+          if (searchResults) {
+            dispatch(setCountForPagination(searchResults.data.length));
+          }
+          
         }
 
         if (!searchQuery) {

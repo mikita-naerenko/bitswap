@@ -22,13 +22,62 @@ export const api = createApi({
         return `/assets/${id}/history?interval=${interval}`;
       },
     }),
+    getMarkets: builder.query({
+        query: (id) => `/assets/${id}/markets`
+    }),
+    getExchangesDetails: builder.query({
+      query: (id) => `/exchanges/`
+  }),
     searchCoins: builder.query({
       query: (searchTerm) => `assets?search=${searchTerm}`,
     }),
+    getFavoriteCoins: builder.query({
+      // Multiple request for favorite coins page
+      async queryFn(args) {
+        const querys = args.map((id) => `https://api.coincap.io/v2/assets/${id}`);
+    
+        try {
+          const responses = await Promise.all(querys.map((query) => {
+            return fetch(query);
+          }));
+          const data = await Promise.all(responses.map((response) => response.json()));
+          return { data };
+        } catch (error) {
+          return { error };
+        }
+      },
+    }),
+    // WebSocket endpoint
+    // subscribeData: builder.subscription({
+    //     query: () => ({
+    //         url: '/subscribe-data',
+    //         }),
+    //     // WebSocket connection and event handlers
+    //     onMessage: (event) => {
+    //         console.log('WebSocket message received:', event);
+    //     // Dispatch an action or update your store with the received data
+    //       },
+    //     onError: (error) => {
+    //         console.error('WebSocket error:', error);
+    //       },
+    //     // Optional: Close the WebSocket connection when the subscription is unsubscribed
+    //     closeOnUnsubscribe: true,
+    //  }),
+
+
+    
   }),
 });
 
-export const { useGetCryptoListQuery, useGetCryptoDetailsQuery, useGetCryptoHistoryQuery, useSearchCoinsQuery } = api;
+export const { useGetCryptoListQuery,
+               useGetFavoriteCoinsQuery,
+               useGetCryptoHistoryQuery,
+               useSearchCoinsQuery,
+               useGetCryptoDetailsQuery,
+               useGetMarketsQuery,
+               useGetExchangesDetailsQuery,
+               
+            } = api;
 
 
 

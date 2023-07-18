@@ -1,31 +1,49 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-
+import { useGetCryptoDetailsQuery } from "../components/api";
 
 const filtersAdapter = createEntityAdapter();
 
 const initialState = filtersAdapter.getInitialState({
     offset: 0,
-    test1: 'test1',
+    favoriteCoinsForRequest: [],
+    cryptoDetails: {} ,
+    favoriteCoinsList: []
 })
-
 
 
 const mainCryptoListSlice = createSlice({
     name: 'mainCryptoList',
     initialState,
     reducers: {
-        setOffset: (state, action) => {state.offset = action.payload}
+        setOffset: (state, action) => {state.offset = action.payload},
+        
+        addFavoriteCoinsForRequest: (state, action) => {
+            const newFavorite = action.payload;
+            state.favoriteCoinsForRequest.push(newFavorite);
+          },
+        removeFavoriteCoinsForRequest: (state, action) => {
+            const coinToRemove = action.payload;
+            state.favoriteCoinsForRequest = state.favoriteCoinsForRequest.filter(
+              (coin) => coin !== coinToRemove
+            );
+          },
+        setFavoriteCoinsList: (state,action) => { state.favoriteCoinsList = action.payload},
+        updateFavoriteCoinsList: (state,action) => {
+          const newData = action.payload;
+          state.favoriteCoinsList.forEach((coin, index) => {
+            if (newData[coin.id]) {
+              if (coin.priceUsd !== newData[coin.id]) {
+                state.favoriteCoinsList[index] = {
+                  ...coin,
+                  priceUsd: newData[coin.id],
+                };
+              }
+            }
+          })
+        }
     },
-    // extraReducers: (builder) => {
-    //     builder 
-    //             .addCase(fetchFilters.pending, state => {state.filtersLoadingStatus = 'loading'})
-    //             .addCase(fetchFilters.fulfilled, (state, action) => {
-    //                 state.filtersLoadingStatus = 'idle';
-    //                 filtersAdapter.setAll(state, action.payload);
-    //             })
-    //             .addCase(fetchFilters.rejected, state => {state.filtersLoadingStatus = 'error'})
-    //             .addDefaultCase(() => {})
-    // }
+    extraReducers: (builder) => {
+  },
 }); 
 
 const {actions, reducer} = mainCryptoListSlice;
@@ -34,5 +52,9 @@ export const {selectAll} = filtersAdapter.getSelectors(state => state.mainCrypto
 
 
 export const {
-    setOffset
+    setOffset,
+    addFavoriteCoinsForRequest,
+    removeFavoriteCoinsForRequest,
+    setFavoriteCoinsList,
+    updateFavoriteCoinsList
 } = actions;
