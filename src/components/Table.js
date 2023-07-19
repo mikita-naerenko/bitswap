@@ -21,7 +21,7 @@ import Link from 'next/link';
       if (!favoriteCoinsForRequest.includes(id)) {
         dispatch(addFavoriteCoinsForRequest(id));
       } else {
-        dispatch(removeFavoriteCoinsForRequest(id));
+        dispatch(removeFavoriteCoinsForRequest([id]));
       }
     };
     return (

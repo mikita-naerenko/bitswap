@@ -2,12 +2,14 @@ import BasicTable from '../components/Table'
 import AppBar from '../components/AppBar';
 import BasicPagination from '../components/Pagination';
 import Box from '@mui/material/Box';
+import  EnhancedTable  from '../components/FavoriteCoinsTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetFavoriteCoinsQuery } from '../components/api';
 import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setOffset, setFavoriteCoinsList, updateFavoriteCoinsList } from '../redux/MainCryptoListSlice';
 import {useWebSocketListeners} from '../components/WebSocket';
+
 
 
 
@@ -32,10 +34,8 @@ const Favorites = () => {
     return (
         <>
             <AppBar/>
-            <h1>Favorites</h1>
-            {favoriteConsListToRender ? <BasicTable row={favoriteConsListToRender}/> : null}
+            {favoriteConsListToRender ? <EnhancedTable row={favoriteConsListToRender}/> : null}
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
-                      <BasicPagination/>  
             </Box>
         </>
         

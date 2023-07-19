@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { useGetCryptoDetailsQuery } from "../components/api";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+
 
 const filtersAdapter = createEntityAdapter();
 
@@ -18,17 +18,26 @@ const mainCryptoListSlice = createSlice({
         setOffset: (state, action) => {state.offset = action.payload},
         
         addFavoriteCoinsForRequest: (state, action) => {
+          // Add selected coins on favorite list (this list will be use as request pull)
             const newFavorite = action.payload;
             state.favoriteCoinsForRequest.push(newFavorite);
           },
         removeFavoriteCoinsForRequest: (state, action) => {
+          // Compare removing list with add Favorite CoinsForRequest state and remove matched items
             const coinToRemove = action.payload;
+            const coinsToRemoveObj = {};
+            coinToRemove.forEach(coin => {
+              coinsToRemoveObj[coin] = coin;
+            })
             state.favoriteCoinsForRequest = state.favoriteCoinsForRequest.filter(
-              (coin) => coin !== coinToRemove
+              (coin) => {
+              return  coin !== coinsToRemoveObj[coin]
+              }
             );
           },
         setFavoriteCoinsList: (state,action) => { state.favoriteCoinsList = action.payload},
         updateFavoriteCoinsList: (state,action) => {
+          // Update curren list of favorite coins (this state will be use for render)
           const newData = action.payload;
           state.favoriteCoinsList.forEach((coin, index) => {
             if (newData[coin.id]) {

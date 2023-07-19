@@ -10,7 +10,7 @@ const ButtonAddToFavorites = forwardRef((props, ref) => {
       <Stack direction="row" spacing={1}>
         <IconButton ref={ref} 
                     onClick={() => props.onClick(props.id)} 
-                    style={favoriteCoinsForRequest.includes(props.id) ? { color: 'red', opacity: '0.5' } : { color: '#F3FD0A', opacity: '0.5' }} 
+                    style={favoriteCoinsForRequest.includes(props.id) ? { color: 'yellow', opacity: '1' } : { color: 'gray', opacity: '0.7' }} 
                     aria-label="add to favorites">
           <GradeIcon />
         </IconButton>
