@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchInput from './SearchInput';
 
+import CurrentBalanceHeader from './CurrentBalanceHeader';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from '../redux/AppBarSlice';
@@ -36,7 +37,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {currentPage}
           </Typography>
-          <Box display={'flex'} flexGrow={1} justifyContent={'space-around'}> 
+          <Box display={'flex'} flexGrow={1} justifyContent={'space-around'} alignItems={'center'}> 
               {
                 currentPage === 'Main crypto-list' ? 
                 <SearchInput/> :
@@ -70,6 +71,11 @@ export default function ButtonAppBar() {
                   <Link href={`/account/`} ref={accountRef} onClick={() => dispatch(setCurrentPage(accountRef.current.textContent))}>Account</Link>
                   </Typography> :
                   null
+              }
+              {
+                currentPage !== 'Account' 
+                ? <CurrentBalanceHeader/>
+                : null
               }
           </Box>
         </Toolbar>

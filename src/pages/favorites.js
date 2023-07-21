@@ -1,6 +1,5 @@
-import BasicTable from '../components/Table' 
+
 import AppBar from '../components/AppBar';
-import BasicPagination from '../components/Pagination';
 import Box from '@mui/material/Box';
 import  EnhancedTable  from '../components/FavoriteCoinsTable';
 import { useDispatch, useSelector } from 'react-redux';
