@@ -41,7 +41,7 @@ export default function SearchInput() {
           }
       }, [userInteracted, searchResults, searchQuery, dispatch]);
   return (
-    <Stack spacing={2} sx={{ width: 300 }}>
+    <Stack spacing={1} sx={{ width: 200 }}>
       <Autocomplete
         freeSolo
         id="free-solo-2-demo"
