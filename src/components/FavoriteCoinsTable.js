@@ -21,6 +21,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useDispatch } from 'react-redux';
 import { removeFavoriteCoinsForRequest } from '../redux/MainCryptoListSlice';
+import PurchaseButton from './buttons/PurchaseButton';
 
 
 
@@ -320,7 +321,7 @@ export default function EnhancedTable({row}) {
                       scope="row"
                       padding="none"
                     >
-                      {row.name}
+                      {row.name}<PurchaseButton coin={row}/>
                     </TableCell>
                     <TableCell align="right">{Number(row.rank)}</TableCell>
                     <TableCell align="right">{Number(row.priceUsd).toFixed(2)}</TableCell>

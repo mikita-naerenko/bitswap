@@ -4,20 +4,18 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import PurchaseButton from './buttons/PurchaseButton';
+import ButtonAddToFavorites from './buttons/ButtonAddToFavorites';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
 
 export default function SingleCoinCard({data}) {
   const {data: selectedCoin} = data;
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ width: 475, mt: 5 }} style={{position: 'relative'}}>
+      <Box style={{position: 'absolute', top: '0', right: '0'}}>
+        <PurchaseButton coin={selectedCoin}/>
+        <ButtonAddToFavorites id={selectedCoin.id}/>
+      </Box>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Selected coin
@@ -44,9 +42,6 @@ export default function SingleCoinCard({data}) {
           
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }

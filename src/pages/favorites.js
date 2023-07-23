@@ -8,13 +8,14 @@ import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setOffset, setFavoriteCoinsList } from '../redux/MainCryptoListSlice';
 import {useWebSocketListeners} from '../components/WebSocket';
-
+import ModalWrapper from '../components/ModalWrapper';
 
 
 
 const Favorites = () => {
     const dispatch = useDispatch();
     const { favoriteCoinsForRequest, offset, favoriteCoinsList } = useSelector(state => state.mainCryptoList);
+    const { modalPurchaseCoin } = useSelector(state => state.modalState);
     const {data: favoriteCoinsListResponse, isLoading, isError} = useGetFavoriteCoinsQuery(favoriteCoinsForRequest);
     // Create a list to be rendered by using the offset value from Redux, which depends on the active button in the pagination
     const favoriteConsListToRender = favoriteCoinsList ? favoriteCoinsList.map(item => item).slice(offset, offset + 10): null;
@@ -33,6 +34,7 @@ const Favorites = () => {
     return (
         <>
             <AppBar/>
+            <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
             {favoriteConsListToRender ? <EnhancedTable row={favoriteConsListToRender}/> : null}
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
             </Box>

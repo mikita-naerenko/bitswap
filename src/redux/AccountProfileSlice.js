@@ -6,15 +6,17 @@ const initialState = filtersAdapter.getInitialState({
     user: {},
     editModalDisplayed: false,
     modalPaymentDisplayed: false,
+    modalPurchaseCoin: false,
 });
 
-const appBarSlice = createSlice({
+const accountProfileSlice = createSlice({
     name: 'accountProfile',
     initialState,
     reducers: {
         setUser: (state, action) => {state.user = action.payload},
         setEditModalDisplayed: (state,action) => {state.editModalDisplayed = action.payload},
         setModalPaymentDisplayed: (state,action) => {state.modalPaymentDisplayed = action.payload},
+        setModalPurchaseCoin: (state,action) => {state.modalPurchaseCoin = action.payload},
         replenishTheBalance: (state,action) => {
             const payment = action.payload;
             const balance = state.user.balance;
@@ -33,7 +35,7 @@ const appBarSlice = createSlice({
 }); 
 
 
-const {actions, reducer} = appBarSlice;
+const {actions, reducer} = accountProfileSlice;
 export default reducer;
 export const {selectAll} = filtersAdapter.getSelectors(state => state.accountProfile);
 
@@ -45,4 +47,5 @@ export const {
     updateUserProfile,
     setModalPaymentDisplayed,
     replenishTheBalance,
+    setModalPurchaseCoin,
 } = actions;

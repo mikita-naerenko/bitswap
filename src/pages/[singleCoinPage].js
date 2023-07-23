@@ -14,6 +14,7 @@ import { useGetCryptoDetailsQuery,
 import SingleCoinCard from '../components/SingleCoinCard';
 import BasicPagination from '../components/Pagination';
 import Box from '@mui/material/Box';
+import ModalWrapper from '../components/ModalWrapper';
 
 
 const SingleCoinPage = () => {
@@ -21,6 +22,7 @@ const SingleCoinPage = () => {
     const currentCoin = query.singleCoinPage || (typeof window !== 'undefined' && localStorage.getItem('currentCoin'));
     const dispatch = useDispatch();
     const { offset } = useSelector(state => state.mainCryptoList);
+    const { modalPurchaseCoin } = useSelector(state => state.accountProfile);
     const {
       // Fetch data for selected coin
         data: detailsData,
@@ -82,11 +84,10 @@ const SingleCoinPage = () => {
     return (
         <>
             <AppBar/>
-            <h1>Single Coin Page</h1>
-            {detailsData ? <SingleCoinCard data={detailsData}/> : null }
-            {/* {marketsList ? <MarketsTable currentCoin={currentCoin} data={marketsList}/>
-                             : null} */}
-                             {displayMarketsTable(marketsListToRender)}
+            <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin} />
+            
+            {detailsData && <SingleCoinCard data={detailsData}/>}
+            {displayMarketsTable(marketsListToRender)}
             
 
         </>
