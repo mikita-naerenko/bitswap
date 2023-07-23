@@ -7,13 +7,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { useDispatch, useSelector } from 'react-redux';
-import { setModalPaymentDisplayed } from '../redux/AccountProfileSlice';
-
+import ButtonReplenishBalance from './buttons/ButtonReplenishBalance';
 
 const AccountBallance = ({currentUser}) => {
-    const dispatch = useDispatch();
-    const { modalPaymentDisplayed } = useSelector(state => state.accountProfile);
     return (
         <Card>
             <CardContent>
@@ -74,7 +70,8 @@ const AccountBallance = ({currentUser}) => {
                     <CardActions>
                         <Button>Receive</Button>
                         <Button>Send</Button>
-                        <Button onClick={() => dispatch(setModalPaymentDisplayed(!modalPaymentDisplayed))}>Top up</Button>
+                        <ButtonReplenishBalance/>
+                        {/* <Button onClick={() => dispatch(setModalPaymentDisplayed(!modalPaymentDisplayed))}>Top up</Button> */}
                     </CardActions>
                 </Box>
             </CardContent>

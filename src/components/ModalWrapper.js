@@ -1,32 +1,46 @@
+import SwitcherOfModalsWindow from "./SwitcherOfModalWindow";
 import * as React from 'react';
 import clsx from 'clsx';
 import { styled, Box } from '@mui/system';
 import Modal from '@mui/base/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalPaymentDisplayed } from '../redux/AccountProfileSlice';
-import Payment from './Payment';
+// import { setModalPaymentDisplayed, setEditModalDisplayed, setModalPurchaseCoin } from '../redux/AccountProfileSlice';
+import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchaseCoin } from '../redux/ModalStateSlice';
 
 
 
-const ModalPayment = () => {
+const ModalWrapper = ({type, toggle}) => {
+
     const dispatch = useDispatch();
-    const { modalPaymentDisplayed } = useSelector(state => state.accountProfile);
+
+    const handleClose = (type) => {
+            //    Return reducer to close modal in depends props with modal value
+        switch (type) {
+            case 'payment':
+                return setModalPaymentDisplayed;
+            case 'editProfile':
+                return setModalEditProfileDisplayed;
+            case 'purchaseCoin':
+                return setModalPurchaseCoin
+            default:
+                return null;
+        }
+    }
     return (
         <div>
         <StyledModal
           aria-labelledby="unstyled-modal-title"
           aria-describedby="unstyled-modal-description"
-          open={modalPaymentDisplayed}
-          onClose={() => dispatch(setModalPaymentDisplayed(!modalPaymentDisplayed))}
+          open={toggle}
+          onClose={() => dispatch(handleClose(type)(!toggle))}
           slots={{ backdrop: StyledBackdrop }}
         >
           <Box sx={style}>
-                <Payment/>
+                <SwitcherOfModalsWindow type={type}/>
           </Box>
         </StyledModal>
       </div>
     )
-
 }
 
 const Backdrop = React.forwardRef((props, ref) => {
@@ -65,5 +79,4 @@ const style = (theme) => ({
   boxShadow: `0px 2px 24px ${theme.palette.mode === 'dark' ? '#000' : '#383838'}`,
 });
 
-
-export default ModalPayment;
+export default ModalWrapper;

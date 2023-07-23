@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+
 import {
   Box,
   Button,
@@ -13,19 +13,11 @@ import {
 
 import { Input, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserAvatar, updateUserProfile, setEditModalDisplayed } from '../redux//AccountProfileSlice';
+import { updateUserAvatar, updateUserProfile } from '../../redux/AccountProfileSlice';
+import { setModalEditProfileDisplayed } from '../../redux/ModalStateSlice';
 import { Formik, Form, useField } from 'formik';
-import * as Yup from 'yup';
-import { useRef, useState }  from 'react';
-
-const validationSchema = Yup.object({
-  firstName: Yup.string().min(2, 'First name must be at least 2 characters').required('Field is required'),
-  lastName: Yup.string().min(2, 'Last name must be at least 2 characters').required('Field is required'),
-  email: Yup.string().email('Invalid email'),
-  phone: Yup.string().min(8, 'Phone must be at least 8 characters'),
-  country: Yup.string().min(2, 'Must be at least 2 characters'),
-  city: Yup.string().min(2, 'Must be at least 2 characters'),
-});
+import { useRef }  from 'react';
+import validationSchema from '../../schemes/validationScheme';
 
 
 const TextInput = ({...props }) => {
@@ -43,7 +35,8 @@ const TextInput = ({...props }) => {
 const EditAccountProfile = () => {
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
-  const { user: currentUser, editModalDisplayed } = useSelector((state) => state.accountProfile);
+  const { user: currentUser } = useSelector((state) => state.accountProfile);
+  const { modalEditProfileDisplayed } = useSelector((state) => state.modalState);
 
   const handleFileInputChange = (event) => {
     // Update user avatar 
@@ -77,7 +70,7 @@ const EditAccountProfile = () => {
         console.log(`Data has been submitted`, newData);
         dispatch(updateUserProfile(newData));
         resetForm();
-        dispatch(setEditModalDisplayed(!editModalDisplayed))
+        dispatch(setModalEditProfileDisplayed(!modalEditProfileDisplayed))
       }}
     >
       <Form autoComplete="off" noValidate>
@@ -171,7 +164,7 @@ const EditAccountProfile = () => {
           </CardContent>
           <Divider />
           <CardActions sx={{ justifyContent: 'center' }}>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" >
               Save details
             </Button>
           </CardActions>

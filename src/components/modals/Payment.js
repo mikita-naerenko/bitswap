@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+
 import {
   Box,
   Button,
@@ -16,20 +16,11 @@ import {
 
 import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalPaymentDisplayed, replenishTheBalance } from '../redux/AccountProfileSlice';
-import { Formik, Form, useField, Field } from 'formik';
-import * as Yup from 'yup';
-import { useRef, useState }  from 'react';
+import { replenishTheBalance } from '../../redux/AccountProfileSlice';
+import { setModalPaymentDisplayed } from '../../redux/ModalStateSlice';
+import { Formik, Form, useField } from 'formik';
+import validationSchema from '../../schemes/validationScheme';
 
-
-const validationSchema = Yup.object({
-    cardholdersname: Yup.string().matches(/^[A-Za-z]+ [A-Za-z]+$/, 'Cardholders name must be like "John Doe"').required('Field is required'),
-    month: Yup.string().required('Field is required'),
-    year: Yup.string().required('Field is required'),
-    cardnumber: Yup.string().matches(/^\d{13,19}$/, 'Enter correct card number').required('Field is required'),
-    cvv: Yup.string().matches(/^\d{3}$/, 'Enter correct CVV'),
-    payment: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct amount').required('Enter the amount you want to deposit into your account'),
-  });
 
   const months = [
     'January',
@@ -83,8 +74,7 @@ const validationSchema = Yup.object({
 
 const Payment = () => {
     const dispatch = useDispatch();
-    const { user: currentUser, modalPaymentDisplayed } = useSelector((state) => state.accountProfile);
-  
+    const {modalPaymentDisplayed } = useSelector((state) => state.modalState);
   
     return (
       <Formik
@@ -98,8 +88,6 @@ const Payment = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
-          // Handle form submission logic here
-          const newData = { ...values}
           const payment = values.payment;
           console.log(`Balance has been replenished`);
           dispatch(replenishTheBalance(payment));

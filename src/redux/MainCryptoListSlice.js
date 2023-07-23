@@ -7,7 +7,9 @@ const initialState = filtersAdapter.getInitialState({
     offset: 0,
     favoriteCoinsForRequest: [],
     cryptoDetails: {} ,
-    favoriteCoinsList: []
+    favoriteCoinsList: [],
+    modalPurchaseCoinDisplayed: false, 
+    coinToPurchase: ''
 })
 
 
@@ -49,7 +51,9 @@ const mainCryptoListSlice = createSlice({
               }
             }
           })
-        }
+        },
+        setModalPurchaseCoinDisplayed: (state,action) => {state.modalPurchaseCoinDisplayed = action.payload},
+        setCoinToPurchase: (state,action) => {state.coinToPurchase = action.payload},
     },
     extraReducers: (builder) => {
   },
@@ -65,5 +69,7 @@ export const {
     addFavoriteCoinsForRequest,
     removeFavoriteCoinsForRequest,
     setFavoriteCoinsList,
-    updateFavoriteCoinsList
+    updateFavoriteCoinsList,
+    setModalPurchaseCoinDisplayed,
+    setCoinToPurchase,
 } = actions;

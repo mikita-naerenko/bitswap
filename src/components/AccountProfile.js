@@ -8,15 +8,14 @@ import {
     Divider,
     Typography
   } from '@mui/material';
-  import ModeEditIcon from '@mui/icons-material/ModeEdit';
-  import IconButton from '@mui/material/IconButton';
+
 
   import { Input } from '@mui/material';
 
-  import { useDispatch, useSelector } from 'react-redux';
-  import { updateUserAvatar, setEditModalDisplayed } from '../redux/AccountProfileSlice';
+  import { useDispatch } from 'react-redux';
+  import { updateUserAvatar } from '../redux/AccountProfileSlice';
   import { useRef } from 'react';
-
+  import ButtonEditProfile from './buttons/ButtonEditProfile';
   
   
    const AccountProfile = ({currentUser}) => {
@@ -24,7 +23,6 @@ import {
     const fileInputRef = useRef(null);
 
     const dispatch = useDispatch();
-    const { editModalDisplayed } = useSelector(state => state.accountProfile)
 
     const handleFileInputChange = (event) => {
       // Update user avatar 
@@ -39,20 +37,13 @@ import {
     const handleButtonClick = () => {
       fileInputRef.current.click();
     };
-    const handleEditProfileButtonClick = () => {
-      dispatch(setEditModalDisplayed(!editModalDisplayed))
-    }
+
 
 
     return (
           <Card>
           <CardContent style={{position: 'relative'}}>
-            <IconButton style={{position: 'absolute', top: '0', right: '0'}}
-                        variant='contained'
-                        onClick={handleEditProfileButtonClick}
-            >
-              <ModeEditIcon/>
-            </IconButton>
+            <ButtonEditProfile/>
             <Box
               sx={{
                 alignItems: 'center',

@@ -2,8 +2,7 @@ import AppBar from '../components/AppBar';
 import AccountProfile from '../components/AccountProfile'
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import AccountBallance from '../components/AccountBallance';
-import ModalEditProfileDetails from '../components/ModalEditAccountDetails';
-import ModalPayment from '../components/ModalPayment'
+import ModalWrapper from '../components/ModalWrapper';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/AccountProfileSlice';
@@ -35,7 +34,8 @@ const Account = () => {
     dispatch(setCurrentPage((typeof window !== 'undefined' && sessionStorage.getItem('currentPage'))))
   },[])
 
-  const { user: currentUser, editModalDisplayed } = useSelector(state => state.accountProfile);
+  const { user: currentUser } = useSelector(state => state.accountProfile);
+  const {modalPaymentDisplayed, modalEditProfileDisplayed } = useSelector(state => state.modalState);
 
     return (
         <>
@@ -48,8 +48,9 @@ const Account = () => {
         py: 8
       }}
     >
-      <ModalEditProfileDetails editModalDisplayed={editModalDisplayed}/>
-      <ModalPayment/>
+      <ModalWrapper type="payment" toggle={modalPaymentDisplayed}/>
+      <ModalWrapper type="editProfile" toggle={modalEditProfileDisplayed}/>
+      
       <Container maxWidth="lg">
         <Stack spacing={3}>
           <div>

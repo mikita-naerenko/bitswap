@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setOffset, setFavoriteCoinsList } from '../redux/MainCryptoListSlice';
 import {useWebSocketListeners} from '../components/WebSocket';
-
+import ModalWrapper from '../components/ModalWrapper';
 
 
 
@@ -35,6 +35,7 @@ const Favorites = () => {
     return (
         <>
             <AppBar/>
+            <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
             {favoriteConsListToRender ? <EnhancedTable row={favoriteConsListToRender}/> : null}
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
             </Box>
