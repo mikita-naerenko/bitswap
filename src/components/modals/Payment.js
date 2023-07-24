@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { replenishTheBalance } from '../../redux/AccountProfileSlice';
 import { setModalPaymentDisplayed } from '../../redux/ModalStateSlice';
 import { Formik, Form, useField } from 'formik';
-import validationSchema from '../../schemes/validationScheme';
+import { validationSchema } from '../../schemes/validationScheme';
 
 
   const months = [

@@ -15,5 +15,7 @@ export const validationSchema = Yup.object({
     cardnumber: Yup.string().matches(/^\d{13,19}$/, 'Enter correct card number').required('Field is required'),
     cvv: Yup.string().matches(/^\d{3}$/, 'Enter correct CVV'),
     payment: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct amount').required('Enter the amount you want to deposit into your account'),
+    // amount: Yup.string().matches(/^(?:0*(?:[1-9]\d*|0)(?:\.\d+)?)$/, 'fuck'),
+
   });
 

@@ -3,8 +3,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { styled, Box } from '@mui/system';
 import Modal from '@mui/base/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-// import { setModalPaymentDisplayed, setEditModalDisplayed, setModalPurchaseCoin } from '../redux/AccountProfileSlice';
+import { useDispatch } from 'react-redux';
 import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchaseCoin } from '../redux/ModalStateSlice';
 
 
@@ -12,7 +11,6 @@ import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchas
 const ModalWrapper = ({type, toggle}) => {
 
     const dispatch = useDispatch();
-
     const handleClose = (type) => {
             //    Return reducer to close modal in depends props with modal value
         switch (type) {
