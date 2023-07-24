@@ -1,5 +1,6 @@
 import Payment from "./modals/Payment";
 import EditAccountProfile from "./modals/EditAccountProfile";
+import PurchaseCoin from "./modals/PurchaseCoin";
 
 const getComponent = (type) => {
     switch (type) {
@@ -8,7 +9,7 @@ const getComponent = (type) => {
         case 'editProfile': 
             return <EditAccountProfile/>;
         case 'purchaseCoin': 
-            return <Payment/>;
+            return <PurchaseCoin/>;
         default: 
             return null;
     }

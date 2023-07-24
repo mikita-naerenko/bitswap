@@ -17,7 +17,7 @@ import { updateUserAvatar, updateUserProfile } from '../../redux/AccountProfileS
 import { setModalEditProfileDisplayed } from '../../redux/ModalStateSlice';
 import { Formik, Form, useField } from 'formik';
 import { useRef }  from 'react';
-import validationSchema from '../../schemes/validationScheme';
+import { validationSchema } from '../../schemes/validationScheme';
 
 
 const TextInput = ({...props }) => {

@@ -11,25 +11,25 @@ import { useEffect } from 'react';
 
 
 
-const user = {
-  avatar: '/assets/avatars/avatar-test-1.png',
-  city: '예산군',
-  country: '한국',
-  jobTitle: 'Senior Developer',
-  firstName: 'Mikita',
-  lastName: 'Naerenko',
-  timezone: 'GTM-7',
-  joined: '2023-07-20',
-  description: 'Hello World!',
-  balance: '1000'
-};
+// const user = {
+//   avatar: '/assets/avatars/avatar-test-1.png',
+//   city: '예산군',
+//   country: '한국',
+//   jobTitle: 'Senior Developer',
+//   firstName: 'Mikita',
+//   lastName: 'Naerenko',
+//   timezone: 'GTM-7',
+//   joined: '2023-07-20',
+//   description: 'Hello World!',
+//   balance: '100'
+// };
 
 const Account = () => {
   const dispatch = useDispatch();
 
 
   useEffect(() => {
-    dispatch(setUser(user))
+    // dispatch(setUser(user))
     // Set current page on refresh 
     dispatch(setCurrentPage((typeof window !== 'undefined' && sessionStorage.getItem('currentPage'))))
   },[])

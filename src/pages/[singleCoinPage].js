@@ -22,7 +22,7 @@ const SingleCoinPage = () => {
     const currentCoin = query.singleCoinPage || (typeof window !== 'undefined' && localStorage.getItem('currentCoin'));
     const dispatch = useDispatch();
     const { offset } = useSelector(state => state.mainCryptoList);
-    const { modalPurchaseCoin } = useSelector(state => state.accountProfile);
+    const { modalPurchaseCoin } = useSelector(state => state.modalState);
     const {
       // Fetch data for selected coin
         data: detailsData,

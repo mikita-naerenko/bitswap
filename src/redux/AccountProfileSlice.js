@@ -3,10 +3,19 @@ import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 const filtersAdapter = createEntityAdapter();
 
 const initialState = filtersAdapter.getInitialState({
-    user: {},
-    editModalDisplayed: false,
-    modalPaymentDisplayed: false,
-    modalPurchaseCoin: false,
+    user: {
+        avatar: '/assets/avatars/avatar-test-1.png',
+        city: '예산군',
+        country: '한국',
+        jobTitle: 'Senior Developer',
+        firstName: 'Mikita',
+        lastName: 'Naerenko',
+        timezone: 'GTM-7',
+        joined: '2023-07-20',
+        description: 'Hello World!',
+        balance: '100000',
+        wallet: [],
+      },
 });
 
 const accountProfileSlice = createSlice({
@@ -14,15 +23,19 @@ const accountProfileSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state, action) => {state.user = action.payload},
-        setEditModalDisplayed: (state,action) => {state.editModalDisplayed = action.payload},
-        setModalPaymentDisplayed: (state,action) => {state.modalPaymentDisplayed = action.payload},
-        setModalPurchaseCoin: (state,action) => {state.modalPurchaseCoin = action.payload},
         replenishTheBalance: (state,action) => {
             const payment = action.payload;
             const balance = state.user.balance;
             const result = Number(payment) + Number(balance);
             state.user.balance = result.toString();
         },
+        writeOffBalance: (state, action) => {
+            const data = action.payload;
+            const balance = state.user.balance;
+            const result = Number(balance) - Number(data);
+            state.user.balance = result.toString();
+        },
+        addCoinOnWallet: (state, action) => { state.user.wallet.push(action.payload)},
         updateUserAvatar: (state, action) => {state.user.avatar = action.payload},
         updateUserProfile: (state, action) => {
             for (let key in action.payload) {
@@ -43,9 +56,8 @@ export const {selectAll} = filtersAdapter.getSelectors(state => state.accountPro
 export const {
     setUser,
     updateUserAvatar,
-    setEditModalDisplayed,
     updateUserProfile,
-    setModalPaymentDisplayed,
     replenishTheBalance,
-    setModalPurchaseCoin,
+    writeOffBalance,
+    addCoinOnWallet,
 } = actions;
