@@ -22,7 +22,7 @@ import { visuallyHidden } from '@mui/utils';
 import { useDispatch } from 'react-redux';
 import { removeFavoriteCoinsForRequest } from '../redux/MainCryptoListSlice';
 import PurchaseButton from './buttons/PurchaseButton';
-
+import DynamicColorArrow from './DynamicColorArrow';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -324,7 +324,12 @@ export default function EnhancedTable({row}) {
                       {row.name}<PurchaseButton coin={row}/>
                     </TableCell>
                     <TableCell align="right">{Number(row.rank)}</TableCell>
-                    <TableCell align="right">{Number(row.priceUsd).toFixed(2)}</TableCell>
+                    <TableCell  align="right">
+                        <Box sx={{ display: 'flex', justifyContent:  'right' }}>
+                          {Number(row.priceUsd).toFixed(2)}
+                          <DynamicColorArrow value={Number(row.priceUsd).toFixed(2)}/>
+                        </Box>
+                    </TableCell>
                     <TableCell align="right">{Number(row.volumeUsd24Hr).toFixed(2)}</TableCell>
                     <TableCell align="right">{Number(row.supply).toFixed(2)}</TableCell>
                   </TableRow>

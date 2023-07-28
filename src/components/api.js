@@ -31,6 +31,22 @@ export const api = createApi({
     searchCoins: builder.query({
       query: (searchTerm) => `assets?search=${searchTerm}`,
     }),
+    getHistoryCoinsOfWallet: builder.query({
+      async queryFn(params) {
+        const {arrId, interval} = params;
+        const querys = arrId.map((id) => `https://api.coincap.io/v2/assets/${id}/history?interval=${interval}`);
+        
+        try {
+          const responses = await Promise.all(querys.map((query) => {
+            return fetch(query);
+          }));
+          const data = await Promise.all(responses.map((response) => response.json()));
+          return { data };
+        } catch (error) {
+          return { error };
+        }
+      }
+    }),
     getFavoriteCoins: builder.query({
       // Multiple request for favorite coins page
       async queryFn(args) {
@@ -76,6 +92,7 @@ export const { useGetCryptoListQuery,
                useGetCryptoDetailsQuery,
                useGetMarketsQuery,
                useGetExchangesDetailsQuery,
+               useGetHistoryCoinsOfWalletQuery,
                
             } = api;
 

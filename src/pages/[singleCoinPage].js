@@ -5,7 +5,7 @@ import { setOffset } from '../redux/MainCryptoListSlice';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setCurrentPage } from '../redux/AppBarSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect }  from 'react';
+import { useEffect, useState }  from 'react';
 import { useGetCryptoDetailsQuery,
          useGetCryptoHistoryQuery, 
          useGetMarketsQuery, 
@@ -15,9 +15,12 @@ import SingleCoinCard from '../components/SingleCoinCard';
 import BasicPagination from '../components/Pagination';
 import Box from '@mui/material/Box';
 import ModalWrapper from '../components/ModalWrapper';
+import HistoricalTrend from '../components/modules/HistoricalTrend';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const SingleCoinPage = () => {
+  const [wallet, setWallet ] = useState(null)
     const {query} = useRouter();
     const currentCoin = query.singleCoinPage || (typeof window !== 'undefined' && localStorage.getItem('currentCoin'));
     const dispatch = useDispatch();
@@ -29,6 +32,15 @@ const SingleCoinPage = () => {
         isLoading: detailsIsLoading,
         isError: detailsIsError,
       } = useGetCryptoDetailsQuery(currentCoin);
+
+    useEffect(() => {
+        detailsData && setWallet({
+        idToRequest: [detailsData.data.id],
+        coinsList: [{
+         label: detailsData.data.symbol
+        }]
+      })
+    }, [detailsData])
 
       const {
         // Fetch data for markets by id selected coin
@@ -87,6 +99,7 @@ const SingleCoinPage = () => {
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin} />
             
             {detailsData && <SingleCoinCard data={detailsData}/>}
+            {wallet ? <HistoricalTrend wallet={wallet}/> : <CircularProgress size={150} />}
             {displayMarketsTable(marketsListToRender)}
             
 
