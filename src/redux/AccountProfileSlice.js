@@ -14,7 +14,17 @@ const initialState = filtersAdapter.getInitialState({
         joined: '2023-07-20',
         description: 'Hello World!',
         balance: '100000',
-        wallet: [],
+        wallet: {   
+                    coinsList :[
+                    {coin: 'Bitcoin', valueCoin: 0.05, label: 'BTC', id: "bitcoin", priceUsd: "29171.33"},
+                    {coin: 'Tether', valueCoin: 1000, label: 'USDT', id: "tether", priceUsd: "1.00"},
+                    {coin: 'BNB', valueCoin: 10, label: 'BNB', id: "binance-coin", priceUsd: "237.34"},
+                    {coin: 'Dogecoin', valueCoin: 3000, label: 'DOGE', id: "dogecoin", priceUsd: "0.077229"},
+                    ],
+                    idToRequest: ["bitcoin", "tether", "binance-coin", "dogecoin"]
+
+                    
+                },
       },
 });
 
@@ -29,13 +39,61 @@ const accountProfileSlice = createSlice({
             const result = Number(payment) + Number(balance);
             state.user.balance = result.toString();
         },
+        updateCostUsdofCoinsList: (state,action) => {
+            const newData = action.payload;
+            const updatedCoinsList = state.user.wallet.coinsList.map((coin) => {
+                if (newData[coin.id] && coin.priceUsd !== newData[coin.id]) {
+                  return {
+                    ...coin,
+                    priceUsd: newData[coin.id],
+                    // valueOnUsd: Number(newData[coin.id] * coin.value)
+                  };
+                }
+                return coin;
+              });
+              return {
+                ...state,
+                user: {
+                  ...state.user,
+                  wallet: {
+                    ...state.user.wallet,
+                    coinsList: updatedCoinsList,
+                  },
+                },
+              };
+        },
         writeOffBalance: (state, action) => {
             const data = action.payload;
             const balance = state.user.balance;
             const result = Number(balance) - Number(data);
             state.user.balance = result.toString();
         },
-        addCoinOnWallet: (state, action) => { state.user.wallet.push(action.payload)},
+        addCoinOnWallet: (state, action) => { 
+            const newData = action.payload;
+            const updateCoinsList = state.user.wallet.coinsList.map((coin,i) => {
+                if (coin.id === newData.id) {
+                    return {
+                        ...coin,
+                        valueCoin: coin.valueCoin + newData.valueCoin
+                    }
+                };
+                return coin
+            })
+            if (!updateCoinsList.some(coin => coin.id === newData.id)) {
+                updateCoinsList.push(newData)
+            }
+            return {
+                ...state,
+                user: {
+                  ...state.user,
+                  wallet: {
+                    ...state.user.wallet,
+                    coinsList: updateCoinsList,
+                  },
+                },
+              };
+            
+        },
         updateUserAvatar: (state, action) => {state.user.avatar = action.payload},
         updateUserProfile: (state, action) => {
             for (let key in action.payload) {
@@ -43,6 +101,10 @@ const accountProfileSlice = createSlice({
                     state.user[key] = action.payload[key]
                 }
             }
+        },
+        updateIdToRequest: (state,action) => {
+            const newData = action.payload;
+            state.user.wallet.idToRequest = [...state.user.wallet.idToRequest, newData];
         }
     },
 }); 
@@ -60,4 +122,6 @@ export const {
     replenishTheBalance,
     writeOffBalance,
     addCoinOnWallet,
+    updateCostUsdofCoinsList,
+    updateIdToRequest,
 } = actions;

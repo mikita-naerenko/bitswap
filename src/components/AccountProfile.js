@@ -86,18 +86,6 @@ import {
             </Box>
           </CardContent>
           <Divider />
-          <CardActions>
-      <Input
-        id="file-input"
-        type="file"
-        inputRef={fileInputRef}
-        onChange={handleFileInputChange}
-        style={{ display: 'none' }}
-      />
-      <Button color="primary" fullWidth variant="text" onClick={handleButtonClick}>
-        Update Avatar
-      </Button>
-          </CardActions>
         </Card>
     )
 

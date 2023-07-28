@@ -10,8 +10,9 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ButtonReplenishBalance from './buttons/ButtonReplenishBalance';
 
 const AccountBallance = ({currentUser}) => {
+
     return (
-        <Card>
+        <Card style={{height: "100%"}}>
             <CardContent>
                 <Box
                     sx={{
@@ -31,7 +32,7 @@ const AccountBallance = ({currentUser}) => {
                                 gutterBottom
                                 variant="h4">
 
-                                {currentUser.balance}$
+                                {Number(currentUser.balance).toFixed(2)}$
                     </Typography>
                     <CardActions>
                                 <Box display="flex">
@@ -71,7 +72,6 @@ const AccountBallance = ({currentUser}) => {
                         <Button>Receive</Button>
                         <Button>Send</Button>
                         <ButtonReplenishBalance/>
-                        {/* <Button onClick={() => dispatch(setModalPaymentDisplayed(!modalPaymentDisplayed))}>Top up</Button> */}
                     </CardActions>
                 </Box>
             </CardContent>

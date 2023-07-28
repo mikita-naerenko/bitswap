@@ -5,9 +5,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import ButtonAddToFavorites from './buttons/ButtonAddToFavorites';
 import PurchaseButton from './buttons/PurchaseButton';
 import { useRef } from 'react';
+import DynamicColorArrow from './DynamicColorArrow';
 
 
 import Link from 'next/link';
@@ -42,7 +44,12 @@ import Link from 'next/link';
                 <Link href={`/${row.id}`} key={row.id}>{row.rank}</Link>
                 </TableCell>
                 <TableCell align="right"><Link href={`/${row.id}`}>{row.name}</Link><PurchaseButton coin={row}/></TableCell>
-                <TableCell align="right"><Link href={`/${row.id}`}>{Number(row.priceUsd).toFixed(5)}</Link></TableCell>
+                <TableCell  align="right">
+                        <Box sx={{ display: 'flex', justifyContent:  'right' }}>
+                          {Number(row.priceUsd).toFixed(2)}
+                          <DynamicColorArrow value={Number(row.priceUsd).toFixed(2)}/>
+                        </Box>
+                    </TableCell>
                 <TableCell align="right"><Link href={`/${row.id}`}>{Number(row.volumeUsd24Hr).toFixed(5)}</Link></TableCell>
                 <TableCell align="right"><Link href={`/${row.id}`}>{Number(row.supply).toFixed(5)}</Link></TableCell>
               </TableRow>

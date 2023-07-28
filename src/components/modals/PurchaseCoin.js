@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, useField, useFormikContext } from 'formik';
 import { validationSchema }from '../../schemes/validationScheme';
 import { useState } from 'react';
-import { writeOffBalance, addCoinOnWallet } from '../../redux/AccountProfileSlice';
+import { writeOffBalance, addCoinOnWallet, updateIdToRequest } from '../../redux/AccountProfileSlice';
 import { setModalPurchaseCoin } from '../../redux/ModalStateSlice';
 
 
@@ -94,13 +94,23 @@ const PurchaseCoin = () => {
         onSubmit={(values, { resetForm }) => {
           const newCoin = {
             coin: coinToPurchase.name,
-            amount: values.amount
+            valueCoin: Number(values.amount),
+            label: coinToPurchase.symbol,
+            id: coinToPurchase.id,
+            priceUsd: coinToPurchase.priceUsd,
+
+
           }
           const writeOffFunds = calculatedPrice.toFixed(2);
-          dispatch(addCoinOnWallet(newCoin));
-          dispatch(writeOffBalance(writeOffFunds));
-          dispatch(setModalPurchaseCoin(!modalPurchaseCoin));
-          resetForm();
+
+          if (Number(writeOffFunds) < Number(user.balance)) {
+            dispatch(addCoinOnWallet(newCoin));
+            dispatch(writeOffBalance(writeOffFunds));
+            dispatch(setModalPurchaseCoin(!modalPurchaseCoin));
+            dispatch(updateIdToRequest(coinToPurchase.id));
+            resetForm();
+          }
+          
         }}
         
       >
