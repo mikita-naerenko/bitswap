@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetFavoriteCoinsQuery } from '../components/api';
 import { useEffect } from 'react';
-import { setCountForPagination, setCurrentPage } from '../redux/AppBarSlice';
-import { setOffset, setFavoriteCoinsList, updateFavoriteCoinsList } from '../redux/MainCryptoListSlice';
+import { setCountForPagination } from '../redux/AppBarSlice';
+import { setOffset, setFavoriteCoinsList } from '../redux/MainCryptoListSlice';
 import {useWebSocketListeners} from '../components/WebSocket';
 
 
@@ -14,7 +14,7 @@ import {useWebSocketListeners} from '../components/WebSocket';
 const Favorites = () => {
     const dispatch = useDispatch();
     const { favoriteCoinsForRequest, offset, favoriteCoinsList } = useSelector(state => state.mainCryptoList);
-    const { currentPage } = useSelector(state => state.appBar);
+    const { modalPurchaseCoin } = useSelector(state => state.modalState);
     const {data: favoriteCoinsListResponse, isLoading, isError} = useGetFavoriteCoinsQuery(favoriteCoinsForRequest);
     // Create a list to be rendered by using the offset value from Redux, which depends on the active button in the pagination
     const favoriteConsListToRender = favoriteCoinsList ? favoriteCoinsList.map(item => item).slice(offset, offset + 10): null;
@@ -27,9 +27,7 @@ const Favorites = () => {
             dispatch(setOffset(0));
         }
     },[favoriteCoinsListResponse])
-    useEffect(() => {
-        dispatch(setCurrentPage((typeof window !== 'undefined' && localStorage.getItem('currentPage'))))
-    },[])
+
     
     useWebSocketListeners(favoriteCoinsForRequest);
     

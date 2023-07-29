@@ -1,5 +1,5 @@
 import AppBar from '../components/AppBar';
-
+import FearAndGreedIndex from '../components/FearAndGreedIndex';
 
 
 
@@ -8,7 +8,7 @@ const Portfolio = () => {
         <>
             <AppBar/>
             <h1>Portfolio</h1>
-            
+            <FearAndGreedIndex/>
         </>
         
     )

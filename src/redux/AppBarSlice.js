@@ -15,9 +15,8 @@ const appBarSlice = createSlice({
     initialState,
     reducers: {
         setCurrentPage: (state, action) => {
-            state.currentPage = action.payload;
-            const newData = action.payload
-            localStorage.setItem('currentPage', newData)
+            state.currentPage = action.payload
+            sessionStorage.setItem('currentPage', action.payload)
         },
         setSearchResults: (state,action) => {state.searchResults = action.payload},
         setCountForPagination: (state, action) => {state.countForPagination = action.payload},
