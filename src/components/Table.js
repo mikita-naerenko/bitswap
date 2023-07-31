@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import ButtonAddToFavorites from './buttons/ButtonAddToFavorites';
 import PurchaseButton from './buttons/PurchaseButton';
 import { useRef } from 'react';
-import DynamicColorArrow from './DynamicColorArrow';
+import DynamicColorArrow from './dynamicColorArrow/DynamicColorArrow'
 
 
 import Link from 'next/link';

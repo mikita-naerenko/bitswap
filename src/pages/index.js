@@ -1,4 +1,5 @@
-import AppBar from '../components/AppBar';
+// import AppBar from '../components/AppBar';
+import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import BasicTable from '../components/Table' 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -23,7 +24,7 @@ const Index = () => {
     },[])
     return (
             <>
-                <AppBar/>
+                <AppBarHeader/>
                 <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
                 <Container maxWidth="xl" sx={{marginTop: '20px'}}>
                     {data ? <BasicTable row={searchResultsForRender ? searchResultsForRender : data.data}/> : null}

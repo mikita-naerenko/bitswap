@@ -1,5 +1,6 @@
 
-import AppBar from '../components/AppBar';
+// import AppBar from '../components/AppBar';
+import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import Box from '@mui/material/Box';
 import  EnhancedTable  from '../components/FavoriteCoinsTable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +35,7 @@ const Favorites = () => {
     
     return (
         <>
-            <AppBar/>
+            <AppBarHeader/>
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
             {favoriteConsListToRender ? <EnhancedTable row={favoriteConsListToRender}/> : null}
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>

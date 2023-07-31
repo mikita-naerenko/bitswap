@@ -1,13 +1,12 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import { useSearchCoinsQuery, useGetCryptoListQuery } from './api';
+import { useSearchCoinsQuery, useGetCryptoListQuery } from '../../../api';
 import { useState, useEffect } from 'react';
-import { setSearchResults, setCountForPagination } from '../redux/AppBarSlice';
+import { setSearchResults, setCountForPagination } from '../../../../redux/AppBarSlice';
 import { useDispatch } from 'react-redux';
+import SearchInputAutocomplete from './SearchInputAutocomplete';
 
-export default function SearchInput() {
+const SearchInput = () => {
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
     const [userInteracted, setUserInteracted] = useState(false);
@@ -18,13 +17,18 @@ export default function SearchInput() {
     const handleSearch = (searchQuery) => {
         setUserInteracted(true);
         setSearchQuery(searchQuery);
-      };
-      const handleInputChange = (event, value) => {
-        if (!value) {
+        if (!searchQuery) {
           setUserInteracted(true);
           setSearchQuery('');
         }
       };
+      const handleInputChange = (event) => {
+        if (!event.target.value) {
+          setUserInteracted(true);
+          setSearchQuery('');
+        }
+      };
+
     useEffect(() => {
         if (userInteracted) {
           // Update the state with search results only when the user has interacted with the input
@@ -40,29 +44,17 @@ export default function SearchInput() {
             dispatch(setSearchResults(null));
           }
       }, [userInteracted, searchResults, searchQuery, dispatch]);
+
+
   return (
     <Stack spacing={1} sx={{ width: 200 }}>
-      <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
-        onInputChange={handleInputChange}
-        onChange={(e) => {
-                            handleSearch(e.target.value || e.target.textContent);
-                        }}
-        
-        options={data ? data.data.map((option) => option.name) : []}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search input"
-            InputProps={{
-              ...params.InputProps,
-              type: 'search',
-            }}
-          />
-        )}
-      />
+      <SearchInputAutocomplete data={data} 
+                               isLoading={isLoading}
+                               isError={isError}
+                               handleSearch={handleSearch} 
+                               handleInputChange={handleInputChange}/>
     </Stack>
   );
 }
+
+export default SearchInput;

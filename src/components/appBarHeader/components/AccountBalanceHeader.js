@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+
 import IconButton from '@mui/material/IconButton';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import Tooltip from '@mui/material/Tooltip';
@@ -7,17 +7,16 @@ import Tooltip from '@mui/material/Tooltip';
 
 
 
-const CurrentBalanceHeader = () => {
-    const { user } = useSelector(state => state.accountProfile)
+const AccountBalanceHeader = ({balance}) => {
 
     return (
         <Tooltip title='Current balance'>
             <IconButton >
                 <MonetizationOnIcon/>
-                {user.balance}
+                {balance}
             </IconButton>
         </Tooltip>
     )
 }
 
-export default CurrentBalanceHeader;
+export default AccountBalanceHeader;

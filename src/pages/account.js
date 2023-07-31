@@ -1,4 +1,5 @@
-import AppBar from '../components/AppBar';
+// import AppBar from '../components/AppBar';
+import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import MemoizedAccountProfile from '../components/AccountProfile'
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import AccountBallance from '../components/AccountBallance';
@@ -25,7 +26,7 @@ const Account = () => {
     return (
         <>
               <>
-        <AppBar/>
+        <AppBarHeader/>
     <Box
       component="main"
       sx={{

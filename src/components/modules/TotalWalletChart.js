@@ -6,7 +6,7 @@ import {
     Typography,
   } from '@mui/material';
   import dynamic from "next/dynamic";
-  import DynamicColorArrow from '../DynamicColorArrow';
+  import DynamicColorArrow from '../dynamicColorArrow/DynamicColorArrow';
   const PieChartWallet = dynamic(() => import('../charts/PieChartWallet'), {ssr:false});
  
 

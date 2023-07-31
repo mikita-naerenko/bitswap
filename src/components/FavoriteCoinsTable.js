@@ -22,7 +22,7 @@ import { visuallyHidden } from '@mui/utils';
 import { useDispatch } from 'react-redux';
 import { removeFavoriteCoinsForRequest } from '../redux/MainCryptoListSlice';
 import PurchaseButton from './buttons/PurchaseButton';
-import DynamicColorArrow from './DynamicColorArrow';
+import DynamicColorArrow from './dynamicColorArrow/DynamicColorArrow';
 
 
 function descendingComparator(a, b, orderBy) {

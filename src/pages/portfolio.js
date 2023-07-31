@@ -1,4 +1,5 @@
-import AppBar from '../components/AppBar';
+// import AppBar from '../components/AppBar';
+import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import FearAndGreedIndex from '../components/FearAndGreedIndex';
 
 
@@ -6,9 +7,9 @@ import FearAndGreedIndex from '../components/FearAndGreedIndex';
 const Portfolio = () => {
     return (
         <>
-            <AppBar/>
+            <AppBarHeader/>
             <h1>Portfolio</h1>
-            <FearAndGreedIndex/>
+            {/* <FearAndGreedIndex/> */}
         </>
         
     )

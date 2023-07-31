@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import AppBar from '../components/AppBar';
+// import AppBar from '../components/AppBar';
+import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import MarketsTable from '../components/MarketsTable';
 import { setOffset } from '../redux/MainCryptoListSlice';
 import { setCountForPagination } from '../redux/AppBarSlice';
@@ -95,7 +96,7 @@ const SingleCoinPage = () => {
 
     return (
         <>
-            <AppBar/>
+            <AppBarHeader/>
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin} />
             
             {detailsData && <SingleCoinCard data={detailsData}/>}
