@@ -1,5 +1,5 @@
 
-import { useGetCryptoListQuery, useGetHistoryCoinsOfWalletQuery,  useGetCryptoHistoryQuery} from '../components/api';
+import { useGetCryptoListQuery, useGetHistoryCoinsOfWalletQuery,  useGetCryptoHistoryQuery} from '../services/api';
 import {
     Typography,
   } from '@mui/material';

@@ -4,11 +4,11 @@ import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import Box from '@mui/material/Box';
 import  EnhancedTable  from '../components/FavoriteCoinsTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetFavoriteCoinsQuery } from '../components/api';
+import { useGetFavoriteCoinsQuery } from '../services/api';
 import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setOffset, setFavoriteCoinsList } from '../redux/MainCryptoListSlice';
-import {useWebSocketListeners} from '../components/WebSocket';
+import {useWebSocketListeners} from '../services/WebSocket';
 import ModalWrapper from '../components/ModalWrapper';
 
 

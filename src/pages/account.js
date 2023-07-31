@@ -1,15 +1,16 @@
 // import AppBar from '../components/AppBar';
 import AppBarHeader from '../components/appBarHeader/AppBarHeader';
-import MemoizedAccountProfile from '../components/AccountProfile'
+import AccountProfile from '../components/accountProfile/AccountProfile';
 import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-import AccountBallance from '../components/AccountBallance';
+// import AccountBallance from '../components/AccountBallance';
+import AccountBallance from '../components/accountBalance/AccountBalance';
 import ModalWrapper from '../components/ModalWrapper';
-import TotalWalletChart from '../components/modules/TotalWalletChart';
-import HistoricalTrend from '../components/modules/HistoricalTrend';
+import TotalWalletChart from '../components/totalWalletChart/TotalWalletChart';
+import HistoricalTrend from '../components/historicalTrend/HistoricalTrend';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from '../redux/AppBarSlice';
 import { useEffect } from 'react';
-import { useWebSocketUpdataCostOfWallet } from '../components/WebSocketWallet';
+import { useWebSocketUpdataCostOfWallet } from '../services/WebSocketWallet';
 
 
 const Account = () => {
@@ -48,7 +49,7 @@ const Account = () => {
                 xs={12}
                 md={12}
               >
-                <MemoizedAccountProfile currentUser={currentUser}/>
+                <AccountProfile currentUser={currentUser}/>
               </Grid>
               <Grid
                 xs={12}

@@ -11,12 +11,12 @@ import { useGetCryptoDetailsQuery,
          useGetCryptoHistoryQuery, 
          useGetMarketsQuery, 
          useGetExchangesDetailsQuery, 
-        } from '../components/api';
+        } from '../services/api';
 import SingleCoinCard from '../components/SingleCoinCard';
 import BasicPagination from '../components/Pagination';
 import Box from '@mui/material/Box';
 import ModalWrapper from '../components/ModalWrapper';
-import HistoricalTrend from '../components/modules/HistoricalTrend';
+import HistoricalTrend from '../components/historicalTrend/HistoricalTrend';
 import CircularProgress from '@mui/material/CircularProgress';
 
 

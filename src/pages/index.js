@@ -4,7 +4,7 @@ import BasicTable from '../components/Table'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import BasicPagination from '../components/Pagination';
-import { useGetCryptoListQuery } from '../components/api';
+import { useGetCryptoListQuery } from '../services/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';

@@ -3,7 +3,7 @@ import mainCryptoList from './MainCryptoListSlice';
 import appBar from './AppBarSlice';
 import accountProfile from './AccountProfileSlice';
 import modalState from './ModalStateSlice';
-import {api} from '../components/api';
+import {api} from '../services/api';
 
 // Import your reducers here
 // e.g., import counterReducer from './counterSlice';

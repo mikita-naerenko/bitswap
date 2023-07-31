@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
-import { useSearchCoinsQuery, useGetCryptoListQuery } from '../../../api';
+import { useSearchCoinsQuery, useGetCryptoListQuery } from '../../../../services/api';
 import { useState, useEffect } from 'react';
 import { setSearchResults, setCountForPagination } from '../../../../redux/AppBarSlice';
 import { useDispatch } from 'react-redux';

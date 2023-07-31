@@ -3,11 +3,10 @@ import {
     Card,
     CardContent,
     CardHeader,
-    Typography,
   } from '@mui/material';
+  import Title from './components/Title';
   import dynamic from "next/dynamic";
-  import DynamicColorArrow from '../dynamicColorArrow/DynamicColorArrow';
-  const PieChartWallet = dynamic(() => import('../charts/PieChartWallet'), {ssr:false});
+  const PieChartWallet = dynamic(() => import('./components/PieChartWallet'), {ssr:false});
  
 
 
@@ -37,13 +36,8 @@ import {
                 />
                 <Box display='flex'
                      justifyContent="center"
-                     alignItems="center"
-                     sx={{
-                        
-
-                     }}>
-                    <Typography>Total capitalization of your assets in USD:</Typography>
-                    <Typography variant="h6" sx={{ml:1}}>{total.toFixed(2)}$</Typography><DynamicColorArrow value={total}/>
+                     alignItems="center">
+                        <Title total={total}/>
                 </Box>
                 <CardContent>
                     <Box>
