@@ -1,14 +1,15 @@
-import Payment from "./modals/Payment";
-import EditAccountProfile from "./modals/EditAccountProfile";
-import PurchaseCoin from "./modals/PurchaseCoin";
+import Payment from "../modals/payment/Payment";
+import EditAccountProfile from "../modals/editAccountProfile/EditAccountProfile";
+import PurchaseCoin from "../modals/purchaseCoin/PurchaseCoin";
+import { TYPE_OF_MODAL } from '../constants';
 
 const getComponent = (type) => {
     switch (type) {
-        case 'payment':
+        case TYPE_OF_MODAL.payment:
             return <Payment/>;
-        case 'editProfile': 
+        case TYPE_OF_MODAL.editProfile: 
             return <EditAccountProfile/>;
-        case 'purchaseCoin': 
+        case TYPE_OF_MODAL.purchaseCoin: 
             return <PurchaseCoin/>;
         default: 
             return null;

@@ -1,14 +1,14 @@
-// import AppBar from '../components/AppBar';
+
 import AppBarHeader from '../components/appBarHeader/AppBarHeader';
-import BasicTable from '../components/Table' 
+import MainTable from '../components/mainTable/MainTable';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import BasicPagination from '../components/Pagination';
+import MainPagination from '../components/pagination/MainPagination';
 import { useGetCryptoListQuery } from '../services/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
-import ModalWrapper from '../components/ModalWrapper';
+import ModalWrapper from '../components/modal/ModalWrapper';
 
 
 const Index = () => {
@@ -27,9 +27,9 @@ const Index = () => {
                 <AppBarHeader/>
                 <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
                 <Container maxWidth="xl" sx={{marginTop: '20px'}}>
-                    {data ? <BasicTable row={searchResultsForRender ? searchResultsForRender : data.data}/> : null}
+                    {data ? <MainTable row={searchResultsForRender ? searchResultsForRender : data.data}/> : null}
                     <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
-                      <BasicPagination/>  
+                      <MainPagination/>  
                     </Box>
                     
                 </Container>

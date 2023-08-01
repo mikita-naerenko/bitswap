@@ -9,13 +9,13 @@ export const validationSchema = Yup.object({
     phone: Yup.string().min(8, 'Phone must be at least 8 characters'),
     country: Yup.string().min(2, 'Must be at least 2 characters'),
     city: Yup.string().min(2, 'Must be at least 2 characters'),
-    cardholdersname: Yup.string().matches(/^[A-Za-z]+ [A-Za-z]+$/, 'Cardholders name must be like "John Doe"').required('Field is required'),
-    month: Yup.string().required('Field is required'),
-    year: Yup.string().required('Field is required'),
-    cardnumber: Yup.string().matches(/^\d{13,19}$/, 'Enter correct card number').required('Field is required'),
-    cvv: Yup.string().matches(/^\d{3}$/, 'Enter correct CVV'),
-    payment: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct amount').required('Enter the amount you want to deposit into your account'),
-    // amount: Yup.string().matches(/^(?:0*(?:[1-9]\d*|0)(?:\.\d+)?)$/, 'fuck'),
+    // cardholdersname: Yup.string().matches(/^[A-Za-z]+ [A-Za-z]+$/, 'Cardholders name must be like "John Doe"').required('Field is required'),
+    // month: Yup.string().required('Field is required'),
+    // year: Yup.string().required('Field is required'),
+    // cardnumber: Yup.string().matches(/^\d{13,19}$/, 'Enter correct card number').required('Field is required'),
+    // cvv: Yup.string().matches(/^\d{3}$/, 'Enter correct CVV'),
+    // payment: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct amount').required('Enter the amount you want to deposit into your account'),
+    // amount: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct amount').required('required'),
 
   });
 

@@ -1,11 +1,11 @@
-import SwitcherOfModalsWindow from "./SwitcherOfModalWindow";
+import SwitcherOfModalsWindow from "./switcher/SwitcherOfModalWindow";
 import * as React from 'react';
 import clsx from 'clsx';
 import { styled, Box } from '@mui/system';
 import Modal from '@mui/base/Modal';
 import { useDispatch } from 'react-redux';
-import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchaseCoin } from '../redux/ModalStateSlice';
-
+import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchaseCoin } from '../../redux/ModalStateSlice';
+import { STYLED_MODAL, STYLED_BACKDROP, STYLE, TYPE_OF_MODAL } from './constants';
 
 
 const ModalWrapper = ({type, toggle}) => {
@@ -14,11 +14,11 @@ const ModalWrapper = ({type, toggle}) => {
     const handleClose = (type) => {
             //    Return reducer to close modal in depends props with modal value
         switch (type) {
-            case 'payment':
+            case TYPE_OF_MODAL.payment:
                 return setModalPaymentDisplayed;
-            case 'editProfile':
+            case TYPE_OF_MODAL.editProfile:
                 return setModalEditProfileDisplayed;
-            case 'purchaseCoin':
+            case TYPE_OF_MODAL.purchaseCoin:
                 return setModalPurchaseCoin
             default:
                 return null;
@@ -33,7 +33,7 @@ const ModalWrapper = ({type, toggle}) => {
           onClose={() => dispatch(handleClose(type)(!toggle))}
           slots={{ backdrop: StyledBackdrop }}
         >
-          <Box sx={style}>
+          <Box sx={STYLE}>
                 <SwitcherOfModalsWindow type={type}/>
           </Box>
         </StyledModal>
@@ -52,29 +52,8 @@ const Backdrop = React.forwardRef((props, ref) => {
     );
   });
 
-const StyledModal = styled(Modal)`
-  position: fixed;
-  z-index: 1300;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+const StyledModal = styled(Modal)`${STYLED_MODAL}`;
 
-const StyledBackdrop = styled(Backdrop)`
-  z-index: -1;
-  position: fixed;
-  inset: 0;
-  background-color: rgb(0 0 0 / 0.5);
-  -webkit-tap-highlight-color: transparent;
-`;
-
-const style = (theme) => ({
-  width: 600,
-  borderRadius: '12px',
-  padding: '16px 32px 24px 32px',
-  backgroundColor: theme.palette.mode === 'dark' ? '#0A1929' : 'white',
-  boxShadow: `0px 2px 24px ${theme.palette.mode === 'dark' ? '#000' : '#383838'}`,
-});
+const StyledBackdrop = styled(Backdrop)`${STYLED_BACKDROP}`;
 
 export default ModalWrapper;

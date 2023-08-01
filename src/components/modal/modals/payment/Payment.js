@@ -1,42 +1,22 @@
 
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Divider,
-  Select,
-  InputLabel,
   MenuItem,
-  TextField,
   Unstable_Grid2 as Grid
 } from '@mui/material';
-
-import { Typography } from '@mui/material';
+import TextInput from './components/TextInput';
+import SelectInput from './components/SelectInput';
+import SubmitButton from './components/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { replenishTheBalance } from '../../redux/AccountProfileSlice';
-import { setModalPaymentDisplayed } from '../../redux/ModalStateSlice';
-import { Formik, Form, useField } from 'formik';
-import { validationSchema } from '../../schemes/validationScheme';
-
-
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-  const years = Array.from({ length: 21 }, (_, index) => 2010 + index);
+import { replenishTheBalance } from '../../../../redux/AccountProfileSlice';
+import { setModalPaymentDisplayed } from '../../../../redux/ModalStateSlice';
+import { Formik, Form } from 'formik';
+import { validationSchemaPayment } from '../schemes/validationScheme';
+import { MONTHS, YEARS } from './constants';
 
 
   const rendeOption = (data) => {
@@ -45,31 +25,7 @@ import { validationSchema } from '../../schemes/validationScheme';
     })
   }
   
-  
-  const TextInput = ({...props }) => {
-    const [field, meta] = useField(props);
-    return (
-      <>
-      <TextField {...field}{...props} />
-       {meta.touched && meta.error ? (
-      <Typography color="error">{meta.error}</Typography>
-    ) : null}
-      </>
-    )
-  }
 
-  const SelectInput = ({...props }) => {
-    const [field, meta] = useField(props);
-    return (
-      <>
-      <InputLabel>{props.label}</InputLabel>
-      <Select {...field}{...props}>{props.options}</Select>
-       {meta.touched && meta.error ? (
-      <Typography color="error">{meta.error}</Typography>
-    ) : null}
-      </>
-    )
-  }
 
 
 const Payment = () => {
@@ -86,7 +42,7 @@ const Payment = () => {
           cvv: '',
           payment: '',
         }}
-        validationSchema={validationSchema}
+        validationSchema={validationSchemaPayment}
         onSubmit={(values, { resetForm }) => {
           const payment = values.payment;
           console.log(`Balance has been replenished`);
@@ -118,7 +74,7 @@ const Payment = () => {
                                helpertext='1'
                                label="Month"
                                name="month" 
-                               options={rendeOption(months)}
+                               options={rendeOption(MONTHS)}
                                required
                                />
                   </Grid>
@@ -127,7 +83,7 @@ const Payment = () => {
                                fullWidth
                                label="Year"
                                name="year" 
-                               options={rendeOption(years)}
+                               options={rendeOption(YEARS)}
                                required
                                />
                   </Grid>
@@ -159,11 +115,7 @@ const Payment = () => {
               </Box>
             </CardContent>
             <Divider />
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="contained" type="submit">
-                REPLENISH THE BALANCE
-              </Button>
-            </CardActions>
+            <SubmitButton/>
           </Card>
         </Form>
       </Formik>

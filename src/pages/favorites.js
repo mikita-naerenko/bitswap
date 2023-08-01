@@ -1,15 +1,14 @@
 
-// import AppBar from '../components/AppBar';
 import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import Box from '@mui/material/Box';
-import  EnhancedTable  from '../components/FavoriteCoinsTable';
+import FavoriteCoinsTable from '../components/favoriteCoinsTable/FavoriteCoinsTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetFavoriteCoinsQuery } from '../services/api';
 import { useEffect } from 'react';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setOffset, setFavoriteCoinsList } from '../redux/MainCryptoListSlice';
 import {useWebSocketListeners} from '../services/WebSocket';
-import ModalWrapper from '../components/ModalWrapper';
+import ModalWrapper from '../components/modal/ModalWrapper';
 
 
 
@@ -37,7 +36,7 @@ const Favorites = () => {
         <>
             <AppBarHeader/>
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
-            {favoriteConsListToRender ? <EnhancedTable row={favoriteConsListToRender}/> : null}
+            {favoriteConsListToRender ? <FavoriteCoinsTable row={favoriteConsListToRender}/> : null}
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
             </Box>
         </>

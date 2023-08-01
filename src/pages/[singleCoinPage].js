@@ -1,21 +1,18 @@
 import { useRouter } from 'next/router';
-// import AppBar from '../components/AppBar';
 import AppBarHeader from '../components/appBarHeader/AppBarHeader';
-import MarketsTable from '../components/MarketsTable';
+import MarketsTable from '../components/marketsTable/MarketsTable';
 import { setOffset } from '../redux/MainCryptoListSlice';
 import { setCountForPagination } from '../redux/AppBarSlice';
 import { setCurrentPage } from '../redux/AppBarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState }  from 'react';
 import { useGetCryptoDetailsQuery,
-         useGetCryptoHistoryQuery, 
          useGetMarketsQuery, 
-         useGetExchangesDetailsQuery, 
         } from '../services/api';
-import SingleCoinCard from '../components/SingleCoinCard';
-import BasicPagination from '../components/Pagination';
+import SingleCoinCard from '../components/singleCoinCard/SingleCoinCard';
+import MainPagination from '../components/pagination/MainPagination';
 import Box from '@mui/material/Box';
-import ModalWrapper from '../components/ModalWrapper';
+import ModalWrapper from '../components/modal/ModalWrapper';
 import HistoricalTrend from '../components/historicalTrend/HistoricalTrend';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -57,21 +54,7 @@ const SingleCoinPage = () => {
             dispatch(setOffset(0))
           }
           
-        },[marketsList]);
-
-        const {
-          // Fetch data for exchange list
-            data: exchangesList,
-            isLoading: exchangesListIsLoading,
-            isError: exchangesListIsError,
-          } = useGetExchangesDetailsQuery(currentCoin);
-      
-      const {
-        // Fetch history for selected coin
-        data: historyData,
-        isLoading: historyIsLoading,
-        isError: historyIsError,
-      } = useGetCryptoHistoryQuery({id: query.singleCoinPage, interval: 'd1'});
+        },[dispatch, marketsList]);
 
 
       useEffect(() => {
@@ -79,7 +62,7 @@ const SingleCoinPage = () => {
         if (currentCoin) {
           localStorage.setItem('currentCoin', currentCoin);
         }
-      }, [currentCoin]);
+      }, [currentCoin, dispatch]);
 
 
 
@@ -88,7 +71,7 @@ const SingleCoinPage = () => {
           <>
             <MarketsTable currentCoin={currentCoin} data={marketsList}/>
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
-                      <BasicPagination/>  
+                      <MainPagination/>  
             </Box>
           </>
         )
@@ -99,7 +82,7 @@ const SingleCoinPage = () => {
             <AppBarHeader/>
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin} />
             
-            {detailsData && <SingleCoinCard data={detailsData}/>}
+            {detailsData && <SingleCoinCard data={detailsData.data}/>}
             {wallet ? <HistoricalTrend wallet={wallet}/> : <CircularProgress size={150} />}
             {displayMarketsTable(marketsListToRender)}
             

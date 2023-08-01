@@ -1,6 +1,6 @@
-// import AppBar from '../components/AppBar';
+
 import AppBarHeader from '../components/appBarHeader/AppBarHeader';
-import FearAndGreedIndex from '../components/FearAndGreedIndex';
+
 
 
 
@@ -9,7 +9,6 @@ const Portfolio = () => {
         <>
             <AppBarHeader/>
             <h1>Portfolio</h1>
-            {/* <FearAndGreedIndex/> */}
         </>
         
     )

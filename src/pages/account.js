@@ -1,10 +1,9 @@
-// import AppBar from '../components/AppBar';
+
 import AppBarHeader from '../components/appBarHeader/AppBarHeader';
 import AccountProfile from '../components/accountProfile/AccountProfile';
-import { Box, Container, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
-// import AccountBallance from '../components/AccountBallance';
+import { Box, Container, Stack, Unstable_Grid2 as Grid } from '@mui/material';
 import AccountBallance from '../components/accountBalance/AccountBalance';
-import ModalWrapper from '../components/ModalWrapper';
+import ModalWrapper from '../components/modal/ModalWrapper';
 import TotalWalletChart from '../components/totalWalletChart/TotalWalletChart';
 import HistoricalTrend from '../components/historicalTrend/HistoricalTrend';
 import { useDispatch, useSelector } from 'react-redux';
