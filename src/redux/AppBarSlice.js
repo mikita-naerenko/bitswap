@@ -3,7 +3,7 @@ import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 const filtersAdapter = createEntityAdapter();
 
 const initialState = filtersAdapter.getInitialState({
-    currentPage: 'Main crypto-list',
+    currentPage: 'main',
     searchResults: null,
     countForPagination: 0,
 });

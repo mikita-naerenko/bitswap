@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
-import AppBarHeader from '../components/appBarHeader/AppBarHeader';
-import MarketsTable from '../components/marketsTable/MarketsTable';
+
 import { setOffset } from '../redux/MainCryptoListSlice';
-import { setCountForPagination } from '../redux/AppBarSlice';
-import { setCurrentPage } from '../redux/AppBarSlice';
+import { setCountForPagination, setCurrentPage } from '../redux/AppBarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState }  from 'react';
 import { useGetCryptoDetailsQuery,
@@ -12,10 +10,13 @@ import { useGetCryptoDetailsQuery,
 import SingleCoinCard from '../components/singleCoinCard/SingleCoinCard';
 import MainPagination from '../components/pagination/MainPagination';
 import Box from '@mui/material/Box';
+
+
 import ModalWrapper from '../components/modal/ModalWrapper';
 import HistoricalTrend from '../components/historicalTrend/HistoricalTrend';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import AppBarHeader from '../components/appBarHeader/AppBarHeader';
+import MarketsTable from '../components/marketsTable/MarketsTable';
 
 const SingleCoinPage = () => {
   const [wallet, setWallet ] = useState(null)
@@ -23,7 +24,7 @@ const SingleCoinPage = () => {
     const currentCoin = query.singleCoinPage || (typeof window !== 'undefined' && localStorage.getItem('currentCoin'));
     const dispatch = useDispatch();
     const { offset } = useSelector(state => state.mainCryptoList);
-    const { modalPurchaseCoin } = useSelector(state => state.modalState);
+    const { modalPurchaseCoin, modalAddToWatchList } = useSelector(state => state.modalState);
     const {
       // Fetch data for selected coin
         data: detailsData,
@@ -80,6 +81,7 @@ const SingleCoinPage = () => {
     return (
         <>
             <AppBarHeader/>
+            <ModalWrapper type="addToWatchList" toggle={modalAddToWatchList}/>
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin} />
             
             {detailsData && <SingleCoinCard data={detailsData.data}/>}

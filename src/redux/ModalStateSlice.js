@@ -6,6 +6,7 @@ const initialState = filtersAdapter.getInitialState({
     modalEditProfileDisplayed: false,
     modalPaymentDisplayed: false,
     modalPurchaseCoin: false,
+    modalAddToWatchList: false,
 });
 
 const modalStateSlice = createSlice({
@@ -15,6 +16,7 @@ const modalStateSlice = createSlice({
         setModalEditProfileDisplayed: (state,action) => {state.modalEditProfileDisplayed = action.payload},
         setModalPaymentDisplayed: (state,action) => {state.modalPaymentDisplayed = action.payload},
         setModalPurchaseCoin: (state,action) => {state.modalPurchaseCoin = action.payload},
+        setModalAddToWatchList: (state,action) => {state.modalAddToWatchList = action.payload},
     },
 }); 
 
@@ -28,4 +30,5 @@ export const {
     setModalEditProfileDisplayed,
     setModalPaymentDisplayed,
     setModalPurchaseCoin,
+    setModalAddToWatchList,
 } = actions;

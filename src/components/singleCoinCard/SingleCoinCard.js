@@ -3,6 +3,7 @@ import CardActions from '@mui/material/CardActions';
 import PurchaseButton from '../buttons/PurchaseButton';
 import ButtonAddToFavorites from '../buttons/ButtonAddToFavorites';
 import SingleCardContent from './components/SingleCardContent';
+import ButtonAddToWatchList from '../buttonAddToWatchList/ButtonAddToWatchList';
 
 const SingleCoinCard = ({data}) => {
   return (
@@ -10,6 +11,7 @@ const SingleCoinCard = ({data}) => {
       <CardActions style={{position: 'absolute', top: '0', right: '0'}}>
         <PurchaseButton coin={data}/>
         <ButtonAddToFavorites id={data.id}/>
+        <ButtonAddToWatchList coin={data} />
       </CardActions>
       <SingleCardContent data={data}/>
     </Card>

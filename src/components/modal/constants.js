@@ -29,5 +29,6 @@ export const STYLE = (theme) => ({
 export const TYPE_OF_MODAL = {
     payment: 'payment',
     editProfile: 'editProfile',
-    purchaseCoin: 'purchaseCoin'
+    purchaseCoin: 'purchaseCoin',
+    addToWatchList: 'addToWatchList',
 }

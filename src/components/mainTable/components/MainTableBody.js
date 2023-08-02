@@ -1,6 +1,7 @@
 import DynamicColorArrow from '../../dynamicColorArrow/DynamicColorArrow';
 import ButtonAddToFavorites from '../../buttons/ButtonAddToFavorites';
 import PurchaseButton from '../../buttons/PurchaseButton';
+import ButtonAddToWatchList from '../../buttonAddToWatchList/ButtonAddToWatchList';
 import Box from '@mui/material/Box';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
@@ -42,6 +43,7 @@ const MainTableBody = ({row}) => {
                                     {row.name}
                                 </Link>
                                 <PurchaseButton coin={row}/>
+                                <ButtonAddToWatchList coin={row}/>
                     </TableCell>
                     <TableCell  align="right">
                                 <Box sx={{ display: 'flex', justifyContent:  'right' }}>

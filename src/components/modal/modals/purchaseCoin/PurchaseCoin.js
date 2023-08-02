@@ -14,8 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form} from 'formik';
 import { validationSchemaPurchaseCoin }from '../schemes/validationScheme';
 import { useState } from 'react';
-import { writeOffBalance, addCoinOnWallet, updateIdToRequest } from '../../../../redux/AccountProfileSlice';
+import { writeOffBalance, addCoinOnWallet, updateIdToRequest, addNewNotification } from '../../../../redux/AccountProfileSlice';
 import { setModalPurchaseCoin } from '../../../../redux/ModalStateSlice';
+const { v4: uuidv4 } = require('uuid');
 
 
 
@@ -50,6 +51,12 @@ const PurchaseCoin = () => {
             dispatch(writeOffBalance(writeOffFunds));
             dispatch(setModalPurchaseCoin(!modalPurchaseCoin));
             dispatch(updateIdToRequest(coinToPurchase.id));
+            dispatch(addNewNotification({ time: new Date().getTime(),
+                                          id: uuidv4(),
+                                          type: 'purchase',
+                                          text: `${newCoin.coin} has been purchased`,
+                                          display: true,
+            }))
             resetForm();
           }
           

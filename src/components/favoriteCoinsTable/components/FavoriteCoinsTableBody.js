@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
 import { useMemo } from 'react';
 import { stableSort, getComparator } from '../helper';
-
+import ButtonAddToWatchList from '../../buttonAddToWatchList/ButtonAddToWatchList';
 
 
 
@@ -82,7 +82,9 @@ const FavoriteCoinsTableBody = (props) => {
                                 scope="row"
                                 padding="none"
                                 >
-                                {row.name}<PurchaseButton coin={row}/>
+                                    {row.name}
+                                    <PurchaseButton coin={row}/>
+                                    <ButtonAddToWatchList coin={row}/>
                                 </TableCell>
                                 <TableCell align="right">{Number(row.rank)}</TableCell>
                                 <TableCell  align="right">

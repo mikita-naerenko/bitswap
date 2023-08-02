@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { styled, Box } from '@mui/system';
 import Modal from '@mui/base/Modal';
 import { useDispatch } from 'react-redux';
-import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchaseCoin } from '../../redux/ModalStateSlice';
+import { setModalPaymentDisplayed, setModalEditProfileDisplayed, setModalPurchaseCoin, setModalAddToWatchList } from '../../redux/ModalStateSlice';
 import { STYLED_MODAL, STYLED_BACKDROP, STYLE, TYPE_OF_MODAL } from './constants';
 
 
@@ -19,7 +19,9 @@ const ModalWrapper = ({type, toggle}) => {
             case TYPE_OF_MODAL.editProfile:
                 return setModalEditProfileDisplayed;
             case TYPE_OF_MODAL.purchaseCoin:
-                return setModalPurchaseCoin
+                return setModalPurchaseCoin;
+            case TYPE_OF_MODAL.addToWatchList:
+                return setModalAddToWatchList
             default:
                 return null;
         }

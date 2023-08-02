@@ -25,6 +25,43 @@ const initialState = filtersAdapter.getInitialState({
 
                     
                 },
+        notifications: [
+            {
+                id: 1,
+                time: 1668680000000,
+                type: 'payment',
+                text: 'Test data notice',
+                display: true
+              },
+              {
+                id: 2,
+                time: 1668683600000,
+                type: 'payment',
+                text: 'Test data notice',
+                display: true,
+              },
+              {
+                id: 3,
+                time: 1668687200000,
+                type: 'price',
+                text: 'Test data notice',
+                display: true,
+              },
+              {
+                id: 4,
+                time: 1668690800000,
+                type: 'send',
+                text: 'Test data notice',
+                display: true,
+              },
+              {
+                id: 5,
+                time: 1668694400000,
+                type: 'price',
+                text: 'Test data notice',
+                display: true,
+              }
+            ]
       },
 });
 
@@ -105,7 +142,24 @@ const accountProfileSlice = createSlice({
         updateIdToRequest: (state,action) => {
             const newData = action.payload;
             state.user.wallet.idToRequest = [...state.user.wallet.idToRequest, newData];
-        }
+        },
+        updateNotificationState: (state,action) => {
+            const updatedNotifications = state.user.notifications.map(notice => {
+                if (notice.id === action.payload) {
+                    return {
+                            ...notice,
+                            display: !notice.display
+                        }
+                } else {
+                    return notice
+                }
+            })
+            state.user.notifications = updatedNotifications
+        },
+        addNewNotification: (state, action) => {
+            const newData = action.payload;
+            state.user.notifications = [...state.user.notifications, newData]
+        },
     },
 }); 
 
@@ -124,4 +178,6 @@ export const {
     addCoinOnWallet,
     updateCostUsdofCoinsList,
     updateIdToRequest,
+    updateNotificationState,
+    addNewNotification,
 } = actions;

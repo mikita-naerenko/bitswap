@@ -6,6 +6,7 @@ import SearchInput from './components/searchInput/SearchInput';
 import AppBarCurrentPage from './components/AppBarCurrentPage';
 import AccountBalanceHeader from './components/AccountBalanceHeader';
 import NavigationItems from './components/NavigationItems'; 
+import NoticeDropDown from '../noticeBadge/NoticeDropDown';
 import { useSelector } from 'react-redux';
 import { PAGES_NAME } from './constants';
 
@@ -24,6 +25,7 @@ const  AppBarHeader = () => {
                 currentPage === PAGES_NAME.main ? <SearchInput/> : null
               }
               <NavigationItems/>
+              <NoticeDropDown/>
               {
                 currentPage !== PAGES_NAME.account ? <AccountBalanceHeader balance={user.balance}/> : null
               }

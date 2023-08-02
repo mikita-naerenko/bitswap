@@ -12,12 +12,12 @@ import TextInput from './components/TextInput';
 import SelectInput from './components/SelectInput';
 import SubmitButton from './components/SubmitButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { replenishTheBalance } from '../../../../redux/AccountProfileSlice';
+import { replenishTheBalance, addNewNotification } from '../../../../redux/AccountProfileSlice';
 import { setModalPaymentDisplayed } from '../../../../redux/ModalStateSlice';
 import { Formik, Form } from 'formik';
 import { validationSchemaPayment } from '../schemes/validationScheme';
 import { MONTHS, YEARS } from './constants';
-
+const { v4: uuidv4 } = require('uuid');
 
   const rendeOption = (data) => {
     return data.map(item => {
@@ -47,6 +47,15 @@ const Payment = () => {
           const payment = values.payment;
           console.log(`Balance has been replenished`);
           dispatch(replenishTheBalance(payment));
+          dispatch(addNewNotification({ 
+                                        time: new Date().getTime(),
+                                        id: uuidv4(),
+                                        type: 'payment',
+                                        text: `Replenished balance: $${payment}`,
+                                        display: true,
+                                      }
+
+          ))
           resetForm();
           dispatch(setModalPaymentDisplayed(!modalPaymentDisplayed))
         }}
