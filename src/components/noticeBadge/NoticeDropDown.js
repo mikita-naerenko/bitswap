@@ -3,12 +3,11 @@ import NoticeMenu from "./components/NoticeMenu";
 import NoticeBadge from "./components/NoticeBadge";
 import { useState } from 'react';
 import { useSelector } from "react-redux";
-import { ClickAwayListener } from '@mui/material';
  
 const NoticeDropDown = () => {
     const { user } = useSelector(state => state.accountProfile);
     const { notifications: notificationsWatcher } = useSelector(state => state.watcherPrice);
-    const notifications = user.notifications.concat(notificationsWatcher);
+    const notifications = user.notifications.concat(notificationsWatcher).sort((a,b) => b.time - a.time);
     const noticeCount = user.notifications.filter(notice => notice.display).length + notificationsWatcher.length;
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);

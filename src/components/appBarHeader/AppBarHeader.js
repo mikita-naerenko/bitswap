@@ -27,7 +27,7 @@ const  AppBarHeader = () => {
               <NavigationItems/>
               <NoticeDropDown/>
               {
-                currentPage !== PAGES_NAME.account ? <AccountBalanceHeader balance={user.balance}/> : null
+                currentPage !== PAGES_NAME.account ? <AccountBalanceHeader user={user}/> : null
               }
           </Box>
         </Toolbar>

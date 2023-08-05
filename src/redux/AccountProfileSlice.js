@@ -14,6 +14,7 @@ const initialState = filtersAdapter.getInitialState({
         joined: '2023-07-20',
         description: 'Hello World!',
         balance: '100000',
+        frozenBalance: 0,
         wallet: {   
                     coinsList :[
                     {coin: 'Bitcoin', valueCoin: 0.05, label: 'BTC', id: "bitcoin", priceUsd: "29171.33"},
@@ -29,36 +30,49 @@ const initialState = filtersAdapter.getInitialState({
             {
                 id: 1,
                 time: 1668680000000,
-                type: 'payment',
-                text: 'Test data notice',
+                type: 'replenish',
+                title: 'Top up balance',
+                textContent: 'The balance was replenished by $100',
                 display: true
               },
               {
                 id: 2,
                 time: 1668683600000,
-                type: 'payment',
-                text: 'Test data notice',
+                type: 'replenish',
+                title: 'Top up balance',
+                textContent: 'The balance was replenished by $1200',
                 display: true,
               },
               {
                 id: 3,
                 time: 1668687200000,
-                type: 'price',
-                text: 'Test data notice',
+                type: 'watchMatch',
+                title: 'The price of bitcoin has reached the required value',
+                textContent: `The price declared in the watcher is 29194. Do you want to buy the coin now? Additionally, you can use our service for auto buying and selling coins.`,
                 display: true,
               },
               {
                 id: 4,
                 time: 1668690800000,
                 type: 'send',
-                text: 'Test data notice',
+                title: 'Transaction',
+                textContent: 'You sent part of your assets to the wallet: test&. ',
                 display: true,
               },
               {
                 id: 5,
                 time: 1668694400000,
-                type: 'price',
-                text: 'Test data notice',
+                type: 'watchMatch',
+                title: 'The price of Tether has reached the required value',
+                textContent: `The price declared in the watcher is 1.01. Do you want to buy the coin now? Additionally, you can use our service for auto buying and selling coins.`,
+                display: true,
+              },
+              {
+                id: 6,
+                time: 1668694200000,
+                type: 'watch',
+                title: 'The bitcoin added to watchlist',
+                textContent: `The price declared in the watcher is 24000. Additionally, you can use our service for auto buying and selling coins.`,
                 display: true,
               }
             ]
@@ -145,6 +159,9 @@ const accountProfileSlice = createSlice({
         },
         updateNotificationState: (state,action) => {
             const updatedNotifications = state.user.notifications.map(notice => {
+                if (notice.id === action.payload && notice.display === false) {
+                  return notice
+                };
                 if (notice.id === action.payload) {
                     return {
                             ...notice,
@@ -159,6 +176,24 @@ const accountProfileSlice = createSlice({
         addNewNotification: (state, action) => {
             const newData = action.payload;
             state.user.notifications = [...state.user.notifications, newData]
+        },
+        updateFrozenBalance: (state,action) => {
+          const newData = Number(action.payload);
+          state.user.frozenBalance = Number(state.user.frozenBalance) + newData;
+          state.user.balance = Number(state.user.balance) - newData;
+        },
+        withdrawalFromFrozenBalance: (state,action) => {
+          const newData = Number(action.payload);
+          state.user.frozenBalance = Number(state.user.frozenBalance) - newData;
+          
+        }, 
+        updateFrozenBalanceAfterPurchase: (state,action) => {
+          const newData = action.payload;
+          if (newData.actualPrice < newData.oldPrice) {
+            const remeinder = newData.oldPrice - newData.actualPrice;
+            state.user.frozenBalance = state.user.frozenBalance - remeinder;
+            state.user.balance = Number(state.user.balance) + remeinder;
+          }
         },
     },
 }); 
@@ -180,4 +215,8 @@ export const {
     updateIdToRequest,
     updateNotificationState,
     addNewNotification,
+    updateFrozenBalance,
+    withdrawalFromFrozenBalance,
+    updateFrozenBalanceAfterPurchase,
+
 } = actions;

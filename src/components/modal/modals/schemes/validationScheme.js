@@ -28,3 +28,11 @@ export const validationSchemaEditPrifile = Yup.object({
     desiredPrice: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct price').required('required'),
   });
 
+  export const validationSchemaAddToWatchAndAutoPurchaseList = Yup.object({
+    desiredPrice: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct desired price').required('required'),
+    amount: Yup.string().matches(/^\d+(\.\d{1,2})?$/, 'Enter correct amount').required('required'),
+    autoBuying: Yup.boolean(),
+  });
+
+
+

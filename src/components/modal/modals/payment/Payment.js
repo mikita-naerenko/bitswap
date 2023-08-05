@@ -50,8 +50,9 @@ const Payment = () => {
           dispatch(addNewNotification({ 
                                         time: new Date().getTime(),
                                         id: uuidv4(),
-                                        type: 'payment',
-                                        text: `Replenished balance: $${payment}`,
+                                        type: 'replenish',
+                                        title: 'Top up balance',
+                                        textContent: `The balance was replenished by $${payment}`,
                                         display: true,
                                       }
 

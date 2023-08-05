@@ -10,10 +10,11 @@ import ButtonRead from './ButtonRead';
 import { ClickAwayListener } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { Typography } from '@mui/material';
 
   const iconSwitcher = (type) => {
     switch (type) {
-      case 'payment':
+      case 'replenish':
         return <PaymentIcon/>;
       case 'price':
         return <PriceCheckIcon/>;
@@ -42,8 +43,17 @@ const MenuItems = ({setAnchorEl, notifications, handleClickAway, noticeCount}) =
         return (
           <ClickAwayListener key={el.id} onClickAway={handleClickAway}>
           <MenuItem key={el.id} id={el.id} onClick={handleClose}>
-                    <ListItemIcon>{iconSwitcher(el.type)}</ListItemIcon>
-                    <ListItemText>{dateString}{el.text}</ListItemText>
+                    <ListItemIcon>
+                        {iconSwitcher(el.type)}
+                    </ListItemIcon>
+                    <ListItemText>
+                        <Typography sx={{fontSize: '10px'}} variant='overline'>
+                            {dateString}
+                        </Typography>
+                        <Typography noWrap>
+                            {el.title}
+                        </Typography>
+                    </ListItemText>
               {<ButtonRead id={el.id}/>}
           </MenuItem>
           </ClickAwayListener>

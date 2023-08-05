@@ -6,6 +6,7 @@ import AccountBallance from '../components/accountBalance/AccountBalance';
 import ModalWrapper from '../components/modal/ModalWrapper';
 import TotalWalletChart from '../components/totalWalletChart/TotalWalletChart';
 import HistoricalTrend from '../components/historicalTrend/HistoricalTrend';
+import History from '../components/history/History';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage } from '../redux/AppBarSlice';
@@ -67,6 +68,12 @@ const Account = () => {
                 md={12}
               >
                 <HistoricalTrend wallet={currentUser.wallet}/>
+              </Grid>
+              <Grid
+                xs={12}
+                md={12}
+              >
+                <History/>
               </Grid>
             </Grid>
         </Stack>

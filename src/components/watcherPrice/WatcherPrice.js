@@ -13,13 +13,14 @@ const WatcherPrice = () => {
 
     const { data } = useGetFavoriteCoinsQuery(arrToRequest, {pollingInterval: 5000,});
     const filteredData = data ? data.map(item => item.data) : [];
-    // console.log(filteredData);
+
     useEffect(() => {
         if (filteredData.length > 0) {
             dispatch(comparePrice(filteredData))
         }
         
-    },[dispatch, filteredData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[ filteredData])
 
 
     return null;

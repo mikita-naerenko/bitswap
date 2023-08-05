@@ -4,49 +4,62 @@ import {
     CardContent,
     CardHeader,
     Divider,
-    Typography,
     Unstable_Grid2 as Grid
   } from '@mui/material';
 import SubmitButton from './components/SubmitButton';
-import TextInput from './components/TextInput';
+import AutoBuyingInput from './components/AutoBuyingInput';
+import CurrentPrice from './components/CurrentPrice';
+import OnAutoBuyingToggleTrue from './components/OnAutoBuyingToggleTrue';
+import DesiredPriceInput from './components/DesiredPriceInput';
+import { createNoticeForWatchList, createNoticeForWatchListAndAutoPurchase } from './helper';
+
 import { Formik, Form } from 'formik';
-import { validationSchemaAddToWatchList } from '../schemes/validationScheme';
+import { useState } from 'react';
+import { validationSchemaAddToWatchList, validationSchemaAddToWatchAndAutoPurchaseList } from '../schemes/validationScheme';
 import { useDispatch, useSelector } from 'react-redux';
 import { addWatchedCoin } from '../../../../redux/WatcherPriceSlice';
-import { addNewNotification } from '../../../../redux/AccountProfileSlice';
+import { addNewNotification, updateFrozenBalance } from '../../../../redux/AccountProfileSlice';
 import { setModalAddToWatchList } from '../../../../redux/ModalStateSlice';
-const { v4: uuidv4 } = require('uuid');
-
-
 
 
 const AddToWatchList = () => {
+    const [amount, setAmount] = useState(0);
+    const [calculatedPrice, setCalculatedPrice] = useState(0);
+    const [ desiredPrice, setDesiredPrice ] = useState(0);
+    const [ autoBuyingToggle, setAutoBuyingToggle ] = useState(true);
+
     const dispatch = useDispatch();
     const { coinToAdd } = useSelector(state => state.watcherPrice);
     const { modalAddToWatchList } = useSelector(state => state.modalState);
+    const { user } = useSelector(state => state.accountProfile);
     return (
         <Formik
         initialValues={{
+            amount: '',
             desiredPrice: '',
+            autoBuying: autoBuyingToggle,
 
           }}
-          validationSchema={validationSchemaAddToWatchList}
+          validationSchema={autoBuyingToggle ? validationSchemaAddToWatchAndAutoPurchaseList : validationSchemaAddToWatchList}
           onSubmit={(values, { resetForm }) => {
             const newData = {
                 name: coinToAdd.name,
                 id: coinToAdd.id,
+                date: new Date().getTime(),
                 priceOnsubscription: coinToAdd.priceUsd,
-                desiredPrice: values.desiredPrice
+                desiredPrice: values.desiredPrice,
+                autoBuying: values.autoBuying,
+                amount: values.autoBuying ? values.amount : null,
+                amountInUsd: values.autoBuying ? calculatedPrice : null,
+
             }
-            console.log(newData);
             dispatch(addWatchedCoin(newData));
-            dispatch(addNewNotification({ 
-                                            time: new Date().getTime(),
-                                            id: uuidv4(),
-                                            type: 'watch',
-                                            text: `"${coinToAdd.name}" added to watch list`,
-                                            display: true,
-              }))
+            // Dispatch notice for watch list or auto buying
+            newData.autoBuying 
+            ? dispatch(addNewNotification(createNoticeForWatchListAndAutoPurchase(coinToAdd,newData)))
+            : dispatch(addNewNotification(createNoticeForWatchList(coinToAdd,newData)))
+            
+            newData.autoBuying && dispatch(updateFrozenBalance(newData.amountInUsd))
             dispatch(setModalAddToWatchList(!modalAddToWatchList));
             resetForm();
 
@@ -62,24 +75,44 @@ const AddToWatchList = () => {
                         <Box sx={{ m: -1.5 }}>
                             <Grid container spacing={3}>
                                 <Grid xs={6} md={6}>
-                                    <TextInput
-                                                fullWidth
-                                                label="Desired Price"
-                                                name="desiredPrice" 
-                                                required
-                                            />
+                                    <DesiredPriceInput  
+                                                        fullWidth
+                                                        setDesiredPrice={setDesiredPrice}
+
+                                                        label="Desired Price"
+                                                        name="desiredPrice" 
+                                                        required/>
                                 </Grid>
                                 <Grid xs={6} md={6}>
-                                    <Box>
-                                        <Typography>Current Price</Typography>
-                                        <Typography>{Number(coinToAdd.priceUsd).toFixed(2)}$</Typography>
-                                    </Box>
+                                    <CurrentPrice coinToPurchase={coinToAdd}/>
                                 </Grid>
+                                <Grid xs={12} md={12}>
+                                    <AutoBuyingInput setAutoBuyingToggle={setAutoBuyingToggle} checked={autoBuyingToggle} name="autoBuying"/>
+                                </Grid>
+                                {autoBuyingToggle 
+                                ? <OnAutoBuyingToggleTrue                                                             
+                                                            fullWidth
+                                                            label={`Amount ${coinToAdd.symbol}`}
+                                                            name="amount" 
+                                                            value={amount}
+                                                            coinToAdd={coinToAdd}
+                                                            setAmount={setAmount}
+                                                            setCalculatedPrice={setCalculatedPrice}
+                                                            desiredPrice={desiredPrice}
+                                                            user={user}
+                                                            calculatedPrice={calculatedPrice}
+                                                            required
+                                                            /> 
+                                : null}
                             </Grid>
                         </Box>
                     </CardContent>
                     <Divider />
-                    <SubmitButton/>
+                    <SubmitButton 
+                                  autoBuyingToggle={autoBuyingToggle}
+                                  user={user}
+                                  calculatedPrice={calculatedPrice}
+                                />
                 </Card>
             </Form>
         </Formik>
