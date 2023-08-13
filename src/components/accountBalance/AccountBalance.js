@@ -33,6 +33,19 @@ const AccountBallance = ({currentUser}) => {
 
                                 {Number(currentUser.balance).toFixed(2)}$
                     </Typography>
+                    <Typography
+                                color="text.secondary"
+                                variant="body2"
+                                style={{ textTransform: 'uppercase' }}
+                            >
+                                Frozen balance:
+                    </Typography>
+                    <Typography
+                                gutterBottom
+                                variant="h4">
+
+                                {Number(currentUser.frozenBalance).toFixed(2)}$
+                    </Typography>
                     <CardActions>
                         <Income/>
                         <Expense/>

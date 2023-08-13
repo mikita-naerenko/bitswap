@@ -1,5 +1,6 @@
 import { writeOffBalance, addCoinOnWallet, updateIdToRequest, addNewNotification, withdrawalFromFrozenBalance } from '../redux/AccountProfileSlice';
 import { setModalPurchaseCoin } from '../redux/ModalStateSlice';
+import { createNoticePurchaseCoin, createNoticeAutoPurchaseCoin } from './createNotice';
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -21,13 +22,15 @@ export const purchaseCoin = (values, dispatch, coinToPurchase, calculatedPrice, 
         dispatch(writeOffBalance(writeOffFunds));
         dispatch(setModalPurchaseCoin(!modalPurchaseCoin));
         dispatch(updateIdToRequest(coinToPurchase.id));
-        dispatch(addNewNotification({ time: new Date().getTime(),
-                                      id: uuidv4(),
-                                      type: 'purchase',
-                                      title: `${newCoin.coin} has been purchased`,
-                                      textContent: `${newCoin.coin} was bought at a price: ${newCoin.priceUsd} in volume: ${newCoin.valueCoin}. The amount of the deal is ${newCoin.amountOfDeal}`,
-                                      display: true,
-        }))
+        dispatch(addNewNotification(createNoticePurchaseCoin(newCoin)
+        //   { time: new Date().getTime(),
+        //                               id: uuidv4(),
+        //                               type: 'purchase',
+        //                               title: `${newCoin.coin} has been purchased`,
+        //                               textContent: `${newCoin.coin} was bought at a price: ${newCoin.priceUsd} in volume: ${newCoin.valueCoin}. The amount of the deal is ${newCoin.amountOfDeal}`,
+        //                               display: true,
+        // }
+        ))
     }
 }
 
@@ -41,18 +44,19 @@ export const autoPurchaseCoin = (dispatch, coinToPurchase, user) => {
     amountOfDeal: Number(coinToPurchase.amount) * Number(coinToPurchase.currentPrice)
   }
   const currentAmountOfDeal = (Number(coinToPurchase.amount) * Number(coinToPurchase.currentPrice)).toFixed(2);
-  // const writeOffFunds = calculatedPrice.toFixed(2);
 
   if (Number(currentAmountOfDeal) < Number(user.frozenBalance)) {
     dispatch(addCoinOnWallet(newCoin));
     dispatch(withdrawalFromFrozenBalance(currentAmountOfDeal));
     dispatch(updateIdToRequest(coinToPurchase.idForRequest));
-    dispatch(addNewNotification({ time: new Date().getTime(),
-                                  id: uuidv4(),
-                                  type: 'purchase',
-                                  title: `${newCoin.coin} has been auto purchased`,
-                                  textContent: `${newCoin.coin} was bought at a price: ${newCoin.priceUsd} in volume: ${newCoin.valueCoin}. The amount of the deal is ${newCoin.amountOfDeal}`,
-                                  display: true,
-    }))
+    dispatch(addNewNotification(createNoticeAutoPurchaseCoin(newCoin)
+    //   { time: new Date().getTime(),
+    //                               id: uuidv4(),
+    //                               type: 'purchase',
+    //                               title: `${newCoin.coin} has been auto purchased`,
+    //                               textContent: `${newCoin.coin} was bought at a price: ${newCoin.priceUsd} in volume: ${newCoin.valueCoin}. The amount of the deal is ${newCoin.amountOfDeal}`,
+    //                               display: true,
+    // }
+    ))
 }
 }

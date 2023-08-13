@@ -1,4 +1,4 @@
-
+import { Container } from '@mui/system';
 import Box from '@mui/material/Box';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,11 +44,13 @@ const Favorites = () => {
     return (
         <>
             <AppBarHeader/>
+            <Container maxWidth="xl" sx={{mt: 3}}>
             <ModalWrapper type="addToWatchList" toggle={modalAddToWatchList}/>
             <ModalWrapper type="purchaseCoin" toggle={modalPurchaseCoin}/>
             {favoriteConsListToRender ? <FavoriteCoinsTable row={favoriteConsListToRender}/> : null}
             <Box display="flex" justifyContent="center" sx={{marginTop: '20px'}}>
             </Box>
+            </Container>
         </>
         
     )

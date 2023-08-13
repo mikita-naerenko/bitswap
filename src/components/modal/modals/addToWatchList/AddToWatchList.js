@@ -12,6 +12,7 @@ import CurrentPrice from './components/CurrentPrice';
 import OnAutoBuyingToggleTrue from './components/OnAutoBuyingToggleTrue';
 import DesiredPriceInput from './components/DesiredPriceInput';
 import { createNoticeForWatchList, createNoticeForWatchListAndAutoPurchase } from './helper';
+import { useWebSocketSingleCoinPriceListener } from '../../../../services/WebSocket';
 
 import { Formik, Form } from 'formik';
 import { useState } from 'react';
@@ -20,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addWatchedCoin } from '../../../../redux/WatcherPriceSlice';
 import { addNewNotification, updateFrozenBalance } from '../../../../redux/AccountProfileSlice';
 import { setModalAddToWatchList } from '../../../../redux/ModalStateSlice';
+const { v4: uuidv4 } = require('uuid');
 
 
 const AddToWatchList = () => {
@@ -27,11 +29,19 @@ const AddToWatchList = () => {
     const [calculatedPrice, setCalculatedPrice] = useState(0);
     const [ desiredPrice, setDesiredPrice ] = useState(0);
     const [ autoBuyingToggle, setAutoBuyingToggle ] = useState(true);
+   
 
     const dispatch = useDispatch();
     const { coinToAdd } = useSelector(state => state.watcherPrice);
+
+    const [actualPrice, setActualPrice] = useState(coinToAdd.priceUsd);
+
     const { modalAddToWatchList } = useSelector(state => state.modalState);
     const { user } = useSelector(state => state.accountProfile);
+
+    useWebSocketSingleCoinPriceListener(coinToAdd.id, setActualPrice);
+
+    
     return (
         <Formik
         initialValues={{
@@ -45,8 +55,9 @@ const AddToWatchList = () => {
             const newData = {
                 name: coinToAdd.name,
                 id: coinToAdd.id,
+                key: uuidv4(),
                 date: new Date().getTime(),
-                priceOnsubscription: coinToAdd.priceUsd,
+                priceOnsubscription: actualPrice,
                 desiredPrice: values.desiredPrice,
                 autoBuying: values.autoBuying,
                 amount: values.autoBuying ? values.amount : null,
@@ -78,16 +89,20 @@ const AddToWatchList = () => {
                                     <DesiredPriceInput  
                                                         fullWidth
                                                         setDesiredPrice={setDesiredPrice}
-
+                                                        actualPrice={actualPrice}
                                                         label="Desired Price"
                                                         name="desiredPrice" 
                                                         required/>
                                 </Grid>
                                 <Grid xs={6} md={6}>
-                                    <CurrentPrice coinToPurchase={coinToAdd}/>
+                                    <CurrentPrice actualPrice={actualPrice}/>
                                 </Grid>
                                 <Grid xs={12} md={12}>
-                                    <AutoBuyingInput setAutoBuyingToggle={setAutoBuyingToggle} checked={autoBuyingToggle} name="autoBuying"/>
+                                    <AutoBuyingInput 
+                                                    setAutoBuyingToggle={setAutoBuyingToggle} 
+                                                    checked={autoBuyingToggle} 
+                                                    name="autoBuying"
+                                                    />
                                 </Grid>
                                 {autoBuyingToggle 
                                 ? <OnAutoBuyingToggleTrue                                                             

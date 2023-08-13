@@ -19,7 +19,8 @@ const Account = () => {
 
   useEffect(() => {
     // Set current page on refresh 
-    dispatch(setCurrentPage((typeof window !== 'undefined' && sessionStorage.getItem('currentPage'))))
+    dispatch(setCurrentPage('account'))
+    // dispatch(setCurrentPage((typeof window !== 'undefined' && sessionStorage.getItem('currentPage'))))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
@@ -72,6 +73,7 @@ const Account = () => {
               <Grid
                 xs={12}
                 md={12}
+                id="anchor-history"
               >
                 <History/>
               </Grid>

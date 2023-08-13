@@ -9,7 +9,7 @@ import {api} from '../services/api';
 
 const store = configureStore({
   reducer: { 
-    mainCryptoList, appBar, [api.reducerPath]: api.reducer, accountProfile, modalState, watcherPrice, history
+    mainCryptoList, appBar, [api.reducerPath]: api.reducer, accountProfile, modalState, watcherPrice, history, 
     // devTools: process.env.NODE_ENV !== 'production',
   },
   middleware: (getDefaultMiddleware) =>

@@ -17,7 +17,7 @@ import { setModalPaymentDisplayed } from '../../../../redux/ModalStateSlice';
 import { Formik, Form } from 'formik';
 import { validationSchemaPayment } from '../schemes/validationScheme';
 import { MONTHS, YEARS } from './constants';
-const { v4: uuidv4 } = require('uuid');
+import { createNoticeReplenish } from '../../../../utils/createNotice'
 
   const rendeOption = (data) => {
     return data.map(item => {
@@ -47,16 +47,7 @@ const Payment = () => {
           const payment = values.payment;
           console.log(`Balance has been replenished`);
           dispatch(replenishTheBalance(payment));
-          dispatch(addNewNotification({ 
-                                        time: new Date().getTime(),
-                                        id: uuidv4(),
-                                        type: 'replenish',
-                                        title: 'Top up balance',
-                                        textContent: `The balance was replenished by $${payment}`,
-                                        display: true,
-                                      }
-
-          ))
+          dispatch(addNewNotification(createNoticeReplenish(payment)))
           resetForm();
           dispatch(setModalPaymentDisplayed(!modalPaymentDisplayed))
         }}

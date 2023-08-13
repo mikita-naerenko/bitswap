@@ -42,12 +42,10 @@ const mainCryptoListSlice = createSlice({
           // Update curren list of favorite coins (this state will be use for render)
           const newData = action.payload;
           state.favoriteCoinsList.forEach((coin, index) => {
-            if (newData[coin.id]) {
-              if (coin.priceUsd !== newData[coin.id]) {
+            if (newData[coin.id] && coin.priceUsd !== newData[coin.id]) {
                 state.favoriteCoinsList[index] = {
                   ...coin,
                   priceUsd: newData[coin.id],
-                };
               }
             }
           })
@@ -55,8 +53,6 @@ const mainCryptoListSlice = createSlice({
         setModalPurchaseCoinDisplayed: (state,action) => {state.modalPurchaseCoinDisplayed = action.payload},
         setCoinToPurchase: (state,action) => {state.coinToPurchase = action.payload},
     },
-    extraReducers: (builder) => {
-  },
 }); 
 
 const {actions, reducer} = mainCryptoListSlice;

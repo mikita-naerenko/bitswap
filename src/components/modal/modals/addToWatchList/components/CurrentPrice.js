@@ -11,7 +11,7 @@ import {
 
 
 
-const CurrentPrice = ({coinToPurchase}) => {
+const CurrentPrice = ({actualPrice}) => {
     return (
             <Box 
                 display={'flex'}
@@ -29,10 +29,10 @@ const CurrentPrice = ({coinToPurchase}) => {
                 <Typography sx={{fontSize: '10px'}} 
                             variant='overline'
                             >
-                    Current price:
+                    Actual price:
                 </Typography>
                 <Typography sx={{fontSize: '20px'}}>
-                    {Number(coinToPurchase.priceUsd).toFixed(2)}
+                    {Number(actualPrice).toFixed(2)}
                 </Typography>
             </Box>
     )

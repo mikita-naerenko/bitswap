@@ -11,6 +11,7 @@ import { ClickAwayListener } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Typography } from '@mui/material';
+import Link from 'next/link';
 
   const iconSwitcher = (type) => {
     switch (type) {
@@ -71,7 +72,9 @@ const MenuItems = ({setAnchorEl, notifications, handleClickAway, noticeCount}) =
           {noticeList}
           <Divider />
           <MenuItem sx={{ color: 'primary.main' }}>
-            <ListItemText sx={{ textAlign: 'center' }}>View All</ListItemText>
+            <ListItemText sx={{ textAlign: 'center' }}>
+                <Link href={`/account#anchor-history`} scroll={true}>View All</Link>
+            </ListItemText>
           </MenuItem>
         </>
       ) : (

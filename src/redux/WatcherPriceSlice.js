@@ -1,7 +1,9 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { createNoticeWatchMatch } from '../utils/createNotice';
+
 
 const filtersAdapter = createEntityAdapter();
-const { v4: uuidv4 } = require('uuid');
+
 const initialState = filtersAdapter.getInitialState({
     watchedCoins: [],
     notifications: [],
@@ -31,14 +33,8 @@ const watcherPriceSlice = createSlice({
               state.watchedCoins.forEach(watcherCoin => {
                 if (newCoin.id === watcherCoin.id) {
                   if (Number(newCoin.priceUsd) <= Number(watcherCoin.desiredPrice)) {
-                    const notice = {
-                      id: uuidv4(),
-                      time: new Date().getTime(),
-                      type: 'watchMatch',
-                      title: `The price of ${watcherCoin.name} has reached the required value`,
-                      textContent: `The price declared in the watcher is ${Number(watcherCoin.desiredPrice).toFixed(2)}. Price at ${new Date().toLocaleString()} is ${newCoin.priceUsd}. Do you want to buy the coin now? Additionally, you can use our service for auto buying and selling coins.`,
-                      display: true,
-                    }
+                    const notice = createNoticeWatchMatch(watcherCoin,newCoin)
+
                     state.notifications = [...state.notifications, notice]
                     const newWatchedCoins = state.watchedCoins.filter(coin => coin.id !== newCoin.id);
                     // If autoBuying === true, add to array for buying
@@ -73,6 +69,11 @@ const watcherPriceSlice = createSlice({
           const updatedcoinsToAutoBuying =  state.coinsToAutoBuying.filter(coin => coin.id !== newData.id);
           state.coinsToAutoBuying = [...updatedcoinsToAutoBuying];
         },
+        removeCoinFromWatchedCoins: (state,action) => {
+          const newData = action.payload;
+          const updatedWatchedCoins =  state.watchedCoins.filter(coin => coin.key !== newData);
+          state.watchedCoins = [...updatedWatchedCoins];
+        },
     },
 }); 
 
@@ -90,5 +91,6 @@ export const {
     comparePrice,
     updateWatcherNotification,
     removecoinsToAutoBuying,
+    removeCoinFromWatchedCoins
 
 } = actions;

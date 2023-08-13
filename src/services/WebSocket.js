@@ -33,3 +33,34 @@ export const useWebSocketListeners = (favoriteCoins) => {
     };
   }, [favoriteCoins]);
 };
+
+
+export const useWebSocketSingleCoinPriceListener = (coin, setActualPrice) => {
+  useEffect(() => {
+    const socket = new WebSocket(`wss://ws.coincap.io/prices?assets=${coin}`);
+    socket.onopen = () => {
+      console.log('WebSocket connection opened');
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    const handleWebSocketMessage = (event) => {
+
+      const data = JSON.parse(event.data);
+      setActualPrice(Object.values(data).join(''));
+    };
+
+    socket.addEventListener('message', handleWebSocketMessage);
+
+    return () => {
+      socket.removeEventListener('message', handleWebSocketMessage);
+      socket.close();
+    };
+  }, [coin]);
+}
