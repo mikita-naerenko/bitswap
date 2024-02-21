@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Запустить npm run dev
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Возникли проблемы с запуском или вопросы? С удовольствием отвечу в тг - @mikita_naerenko
 
-## Available Scripts
+### Есть небольшой баг, поиск по всем монетам появляется на главной странице после клика на Main в хедер
 
-In the project directory, you can run:
+### Не использовал ts тк писал на коленке и по фану
 
-### `npm start`
+## Стек:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+React, Next.js, MUI, formik, RTK,
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Функционал:
 
-### `npm test`
+## Main:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Вывод списка монет в таблице с пагинацией
+2. В таблице колонка с кнопками для добавления в избранное, покупка монеты и добавление в вотчлист с возможностью автопокупки, рядом с ценой индикатор роста/снижения цены (использую пуллинг)
+3. При клике на монету роут на персональную страницу монеты с чартами цены по датам и таблицей маркетов с пагинацией
 
-### `npm run build`
+## Favorites:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Таблица монет с фильтрами по цене/рангу/объему/supply с пагинацией при помощи селекта
+2. Можно выделять монеты для удаления при помощи чекбокса
+   Account:
+3. Инфо о юзере с возможностью правки и загрузки аватара (форма валидируется на стороне клиента)
+4. Информация о баллансе. FROZEN BALANCE: - сумма замороженная для автопокупки
+5. Top up кнопка для пополнения баланса
+6. PaiChart с визуализацией текущих активов, обновляется реалтайм по вебсокет
+7. Historical trend - чарты с графиком цен на текущие активы по временному отрезку
+8. Account history - список уведомлений в который попадают все активности пользователя: покупка,пополнение балланса, добавление в вотчлист, автопокупка. При клике на уведомление оно отмечается как прочитанное
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## WatchList:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+9. Таблица с монетами для наблюдения, после добавления можно удалять, есть иконка автопокупки.
+10. При добавлении в вотчлист открывается модалка где нужно указать желаемую сумму, кол-во монет и включить/выключить автопокупку.
+11. После добавления автопокупки замораживается сумма с баланса и отображается в виджете хэдера с информацией об аккаунте
+12. При достижении желаемой цены списываются деньги со счета а монеты появляются в списке активов. В уведомлениях появляется запись о покупке.

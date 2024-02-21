@@ -9,12 +9,13 @@ const MainTableHead = () => {
     return (
         <TableHead>
         <TableRow>
-          <TableCell>Favorites</TableCell>
-          <TableCell>Rank</TableCell>
-          <TableCell align="right">Name</TableCell>
-          <TableCell align="right">priceUsd</TableCell>
-          <TableCell align="right">volumeUsd24Hr</TableCell>
-          <TableCell align="right">Supply</TableCell>
+
+          <TableCell align='center'> Quick Actions</TableCell>
+          <TableCell width={20}>Rank</TableCell>
+          <TableCell align="left">Name</TableCell>
+          <TableCell align="left">priceUsd</TableCell>
+          <TableCell align="left">volumeUsd24Hr</TableCell>
+          <TableCell align="left">Supply</TableCell>
         </TableRow>
       </TableHead>
     )

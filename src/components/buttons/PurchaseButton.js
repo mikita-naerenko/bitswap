@@ -22,7 +22,7 @@ const PurchaseButton = ({coin}) => {
     return (
         <Tooltip title='Buy now!' style={{zIndex: '2'}}>
             <IconButton onClick={handleClick}>
-                <ShoppingBagIcon fontSize='small' sx={{mt: -0.9}}/>
+                <ShoppingBagIcon fontSize='small'/>
             </IconButton>
         </Tooltip>
     )

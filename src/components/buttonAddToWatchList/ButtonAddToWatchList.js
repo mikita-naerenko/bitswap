@@ -19,7 +19,7 @@ const ButtonAddToWatchList = ({coin}) => {
 
 
     return (
-        <Tooltip>
+        <Tooltip title='Add to watch list'>
             <IconButton onClick={handleClick}>
                 <VisibilityIcon/>
             </IconButton>

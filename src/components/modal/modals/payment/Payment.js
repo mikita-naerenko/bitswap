@@ -66,7 +66,7 @@ const Payment = () => {
                                fullWidth
                                label="Cardholders Name"
                                name="cardholdersname" 
-                               required
+                               required 
                                />
                   </Grid>
                   <Grid xs={6} md={3} sx={{ mt: -2.8 }}>
